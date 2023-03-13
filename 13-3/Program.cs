@@ -12,7 +12,7 @@ namespace Practice1
     {
         static void Main(string[] args)
         {
-            /*Console.WriteLine("Koji je sada mjesec?");
+            Console.WriteLine("Koji je sada mjesec?");
 
             string userMonth = Console.ReadLine();
             string result = userMonth.ToLower();
@@ -68,43 +68,49 @@ namespace Practice1
             else 
             {
                 Console.WriteLine(userMonth + " ...Pa jel to mjesec?");
-            } */
+            } 
 
-            /*string NekiTekst = "Ovo je neki tekst";
-            Console.WriteLine(NekiTekst);
+            //////////////////////////////////////////////////////////////////////////////////
 
-            int NekiBroj = 123;
-            Console.WriteLine("Tvoj broj je: \n" + NekiBroj);
+            string nekiTekst = "Ovo je neki tekst";
+            Console.WriteLine(nekiTekst);
 
-            Console.WriteLine("\nUnesi neki broj: ");
-            string NekiBroj2 = Console.ReadLine();
-            int NekiBroj3 = Convert.ToInt32(NekiBroj2); //dakle posto nemos unositi int direktno, uneses string ali kazes da int poprimi tu vrijednost, tj convertas
-            Console.WriteLine("(Converttoint32) Tvoj broj je: \n" + NekiBroj2);
+            int nekiBroj = 123;
+            Console.WriteLine("Tvoj broj je: \n" + nekiBroj);
 
             Console.WriteLine("\nUnesi neki broj: ");
-            string NekiBroj4 = Console.ReadLine();
-            int NekiBroj5 = int.Parse (NekiBroj4); //isto ali s parse ... u biti nismo ni morali ni convertat radi samo ispisa
-            Console.WriteLine("(Parse) Tvoj broj je: \n" + NekiBroj5);
+            string nekiBroj2 = Console.ReadLine();
+            int nekiBroj3 = Convert.ToInt32(nekiBroj2); //dakle posto nemos unositi int direktno, uneses string ali kazes da int poprimi tu vrijednost, tj convertas
+            Console.WriteLine("(Converttoint32) Tvoj broj je: \n" + nekiBroj2);
+
+            Console.WriteLine("\nUnesi neki broj: ");
+            string nekiBroj4 = Console.ReadLine();
+            int nekiBroj5 = int.Parse (nekiBroj4); //isto ali s parse ... u biti nismo ni morali ni convertat radi samo ispisa
+            Console.WriteLine("(Parse) Tvoj broj je: \n" + nekiBroj5);
             //int Kvadratic = NekiBroj4 * NekiBroj4; aha znači ovaj neće jer je string, dakle za dalje računanje na treba convert ali samo za ispis ne
-            int Kvadrat = NekiBroj5 * NekiBroj5;
-            Console.WriteLine("Kvadrat broja je: \n" + Kvadrat);*/
+            int kvadrat = nekiBroj5 * nekiBroj5;
+            Console.WriteLine("Kvadrat broja je: \n" + kvadrat);
 
-            /*Console.WriteLine("Jesi li prošao ispit?\n");
+            ///////////////////////////////////////////////////////////////////////////////////////////
+
+            Console.WriteLine("Jesi li prošao ispit?\n");
             Console.WriteLine("Unesi svoj broj bodova:\n");
-            string Rezultat = Console.ReadLine(); 
-            int Bodovi = Convert.ToInt32(Rezultat);
-            bool Prolaz = true;
-            bool Pad = true;
-            if (Bodovi >= 60) 
+            string rezultat = Console.ReadLine(); 
+            int bodovi = Convert.ToInt32(rezultat);
+            bool prolaz = true;
+            bool pad = true;
+            if (bodovi >= 60) 
             {
                 Console.WriteLine("\nČisti prolaz!");
-                Console.WriteLine("\nProlaz=true?\n" + Prolaz); 
+                Console.WriteLine("\nProlaz=true?\n" + prolaz); 
             }
             else
             {
                 Console.WriteLine("\nNedovoljno za prolaz!");
-                Console.WriteLine("\nPad=true?\n" + Pad);
-            }*/
+                Console.WriteLine("\nPad=true?\n" + pad);
+            }
+
+            //////////////////////////////////////////////////////////////////////////////////////////////
 
             string[] jezici = { "hrvatski", "engleski", "njemacki", "kineski" };
             Console.WriteLine("\nPogodi koji mi je drugi strani jezik:\n");
@@ -113,22 +119,22 @@ namespace Practice1
             Console.WriteLine(jezici[3]);
             Console.WriteLine(jezici[2]);
             Console.WriteLine("\n");
-            string Jezik = Console.ReadLine();
-            int Izbor = int.Parse (Jezik);
-            int Izbor2 = Izbor + 1;
-            if (Izbor2 == 1) 
+            string jezik = Console.ReadLine();
+            int izbor = int.Parse (jezik);
+            int izbor2 = izbor + 1;
+            if (izbor2 == 1) 
             {
                 Console.WriteLine("\nNije hrvatski, to mi je materinski jezik.");            
             }
-            else if (Izbor2 == 2)
+            else if (izbor2 == 2)
             {
                 Console.WriteLine("\nEngleski mi je drugi jezik, tako je.");
             }
-            else if (Izbor2 == 3) 
+            else if (izbor2 == 3) 
             {
                 Console.WriteLine("\nNjemački mi je treći, ali više ga baš i ne znam.");
             }
-            else if (Izbor2 == 4) 
+            else if (izbor2 == 4) 
             {
                 Console.WriteLine("\nKineski mi je četvrti strani jezik.");
             }
