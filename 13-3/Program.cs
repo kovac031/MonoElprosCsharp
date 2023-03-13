@@ -12,7 +12,7 @@ namespace Practice1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Koji je sada mjesec?");
+            /*Console.WriteLine("Koji je sada mjesec?");
 
             string userMonth = Console.ReadLine();
             string result = userMonth.ToLower();
@@ -143,8 +143,16 @@ namespace Practice1
                 Console.WriteLine("Znam samo "); 
                 Console.WriteLine(jezici.Length);
                 Console.WriteLine(" jezika.");
-            }
+            }*/
 
+            string stringName;
+            int intName;
+            float floatName;
+            double doubleName;
+            bool boolName;
+            char charName;
+
+            int? nullVarijabla = null;
 
 
 
