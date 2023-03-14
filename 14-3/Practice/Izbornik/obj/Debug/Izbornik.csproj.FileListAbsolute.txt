@@ -1,0 +1,8 @@
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\bin\Debug\Izbornik.exe.config
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\bin\Debug\Izbornik.exe
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\bin\Debug\Izbornik.pdb
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\obj\Debug\Izbornik.csproj.AssemblyReference.cache
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\obj\Debug\Izbornik.csproj.SuggestedBindingRedirects.cache
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\obj\Debug\Izbornik.csproj.CoreCompileInputs.cache
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\obj\Debug\Izbornik.exe
+D:\BEKEND\MonoElprosCsharp\14-3\Practice\Izbornik\obj\Debug\Izbornik.pdb
