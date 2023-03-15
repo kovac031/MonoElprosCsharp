@@ -31,22 +31,26 @@ namespace objektnostart
             Console.WriteLine(film.Room);
             Console.WriteLine(film.ScreeningTime);
 
+            ///////////////////////////////////////////////////////////////
+
             Console.WriteLine("\nPošto imam samo jedan film, ajmo unijeti neke druge:\n");
 
-            /*List<Movie> listOfMovies = new List<Movie>();
+            List<Movie> listOfMovies = new List<Movie>();
 
             string closeLoop = "x";
             //int i = 0;
             do
             {
-                Console.WriteLine("\nNaziv filma molim:");
-                film.Title = Console.ReadLine();
-                Console.WriteLine("\nŽanr filma molim:");
-                film.Genre = Console.ReadLine();
-                Console.WriteLine("\nGodinu izlaska filma molim:");
-                film.ReleaseYear = Console.ReadLine();
+                Movie movie = new Movie();
                 
-                listOfMovies.Add(film);
+                Console.WriteLine("\nNaziv filma molim:");
+                movie.Title = Console.ReadLine();
+                Console.WriteLine("\nŽanr filma molim:");
+                movie.Genre = Console.ReadLine();
+                Console.WriteLine("\nGodinu izlaska filma molim:");
+                movie.ReleaseYear = Console.ReadLine();
+                
+                listOfMovies.Add(movie);
 
                 Console.WriteLine("\nNastaviti unos? y/x\n");
                 closeLoop = Console.ReadLine();
@@ -56,10 +60,14 @@ namespace objektnostart
             foreach (Movie movie in listOfMovies) 
             {
             
-                Console.WriteLine (movie.Title + "\n");
-            
-            }*/
+                Console.WriteLine (movie.Title);
+                Console.WriteLine(movie.Genre);
+                Console.WriteLine(movie.ReleaseYear);
 
+            }
+
+            //////////////////////////////////////////////////////////////////////
+            /*
             List<string> authors = new List<string>(); // tu doda autore u listu
             authors.Add("Mahesh Chand");
             authors.Add("Chris Love");
@@ -89,7 +97,7 @@ namespace objektnostart
             foreach (string author in authors) // ovdje opet ispisuje i sad su svi tu
             { 
                 Console.WriteLine(author); 
-            }
+            }*/
 
             Console.ReadLine();
         }
