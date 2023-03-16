@@ -1,0 +1,8 @@
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\bin\Debug\cinemastuff.exe.config
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\bin\Debug\cinemastuff.exe
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\bin\Debug\cinemastuff.pdb
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\obj\Debug\cinemastuff.csproj.AssemblyReference.cache
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\obj\Debug\cinemastuff.csproj.SuggestedBindingRedirects.cache
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\obj\Debug\cinemastuff.csproj.CoreCompileInputs.cache
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\obj\Debug\cinemastuff.exe
+D:\BEKEND\MonoElprosCsharp\16-3\practice\cinemastuff\obj\Debug\cinemastuff.pdb
