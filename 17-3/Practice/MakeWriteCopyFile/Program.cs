@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using PdfSharp;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
 
 namespace MakeWriteCopyFile
 {
@@ -52,8 +55,32 @@ namespace MakeWriteCopyFile
             FileStream endStream = File.OpenWrite(filePath2);
             startStream.CopyTo(endStream); ///// u napravljenom fajlu abc2.txt se sada nalazi Hello World!
 
+            startStream.Flush(); startStream.Close();
+            endStream.Flush(); endStream.Close();
 
+            /////////////////////////////////////////////////////////
+            ///pravit PDF file
 
+            //string pdfPath = "D:\\BEKEND\\MonoElprosCsharp\\17 - 3\\test123\\mojPDF.pdf";
+            /*FileStream streamPDF = File.Create(pdfPath);
+            streamPDF.Flush();
+            streamPDF.Close();*/
+
+            PdfDocument document = new PdfDocument();
+            PdfPage page = document.AddPage();
+
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            XFont font = new XFont("Comic Sans", 30, XFontStyle.Bold); // font je obavezan jer ga trazi ispod, a trazi ga ispod jer je DrawString tako definiran
+            
+            gfx.DrawString(
+                "Hello, World!",font, XBrushes.DodgerBlue, 
+                new XRect(10, 10, page.Width, page.Height), 
+                XStringFormats.TopCenter);
+
+            document.Save("D:\\BEKEND\\MonoElprosCsharp\\17-3\\test123\\mojPDF.pdf");
+
+            
             Console.Read();
         }
     }
