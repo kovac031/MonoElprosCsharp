@@ -1,0 +1,15 @@
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\MakeWriteCopyFile.exe.config
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\MakeWriteCopyFile.exe
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\MakeWriteCopyFile.pdb
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\PdfSharp.Charting.dll
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\PdfSharp.dll
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\PdfSharp.xml
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\PdfSharp.Charting.xml
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\de\PdfSharp.resources.dll
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\bin\Debug\de\PdfSharp.Charting.resources.dll
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\obj\Debug\MakeWriteCopyFile.csproj.AssemblyReference.cache
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\obj\Debug\MakeWriteCopyFile.csproj.SuggestedBindingRedirects.cache
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\obj\Debug\MakeWriteCopyFile.csproj.CoreCompileInputs.cache
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\obj\Debug\MakeWriteCopyFile.csproj.CopyComplete
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\obj\Debug\MakeWriteCopyFile.exe
+D:\BEKEND\MonoElprosCsharp\17-3\Practice\MakeWriteCopyFile\obj\Debug\MakeWriteCopyFile.pdb
