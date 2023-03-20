@@ -1,8 +1,0 @@
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\bin\Debug\objektnostart.exe.config
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\bin\Debug\objektnostart.exe
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\bin\Debug\objektnostart.pdb
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\obj\Debug\objektnostart.csproj.AssemblyReference.cache
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\obj\Debug\objektnostart.csproj.SuggestedBindingRedirects.cache
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\obj\Debug\objektnostart.csproj.CoreCompileInputs.cache
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\obj\Debug\objektnostart.exe
-D:\BEKEND\MonoElprosCsharp\15-3\Practice\objektnostart\obj\Debug\objektnostart.pdb
