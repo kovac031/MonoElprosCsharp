@@ -30,11 +30,12 @@ namespace vjezba.consoleApp
             ///lista ali iz druge klase
             ///
 
+            List<Lista> mojaLista = new List<Lista>();
             try
             {
                 foreach (Lista lista in Lista.mojaLista)
                 {
-                    Console.Write($"{author.Name}\t{author.Book}\t{author.Price}\n");
+                    Console.Write($"{lista.Name}\t{lista.Book}\t{lista.Price}\n");
                 }
             }
             catch (Exception ex) { }
