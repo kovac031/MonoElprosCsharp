@@ -1,0 +1,8 @@
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\bin\Debug\vjezba.consoleApp.exe.config
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\bin\Debug\vjezba.consoleApp.exe
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\bin\Debug\vjezba.consoleApp.pdb
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\obj\Debug\vjezba.consoleApp.csproj.AssemblyReference.cache
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\obj\Debug\vjezba.consoleApp.csproj.SuggestedBindingRedirects.cache
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\obj\Debug\vjezba.consoleApp.csproj.CoreCompileInputs.cache
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\obj\Debug\vjezba.consoleApp.exe
+D:\BEKEND\MonoElprosCsharp\20-3\vjezba\vjezba.consoleApp\obj\Debug\vjezba.consoleApp.pdb
