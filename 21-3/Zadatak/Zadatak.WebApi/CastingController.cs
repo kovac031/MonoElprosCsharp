@@ -34,16 +34,17 @@ namespace Zadatak.WebApi
         }
 
         [HttpGet]
-        public HttpResponseMessage GetActor(int id) // ovaj Actor je isto novi i jednina je samo da se razlikuje od ranijeg Actors
+        // public Actor GetActor(int id) // ovaj Actor je isto novi i jednina je samo da se razlikuje od ranijeg Actors
+        public HttpResponseMessage GetActor(int id) // zamijenio jer nam Actor tu nije sto zelimo da returna neg taj http response message
         {
             try
             {
                 Actor actor = actorsList.Where(x => x.Id == id).FirstOrDefault();
                 if (actor != null)
                 {
-                    return Request.CreateResponse<Actor>(HttpStatusCode.OK, actor);
+                    return Request.CreateResponse(HttpStatusCode.OK, actor);
 
-                    //return actorsList[id]; // api/casting/[id] sa GET
+                    //return actorsList[id]; // api/casting/[id] sa GET ... ali mi sad ne treba jer returnam actor tu iznad
                 }
                 else
                 {
@@ -57,21 +58,59 @@ namespace Zadatak.WebApi
         }
 
         [HttpPost]
-        public List<Actor> CreateActor([FromBody] Actor actor)
+        //public List<Actor> CreateActor([FromBody] Actor actor)
+        public HttpResponseMessage CreateActor([FromBody] Actor actor)
         {
-            actorsList.Add(actor); // u postmanu u BODY raw JSON api/casting POST uneses u formatu kako je GET return bilo sa viticastim zagradama, bez dodatnih provjera moze i duplicirati unose, ne javlja gresku
-            return actorsList;
+            try
+            {
+                Actor actor2 =  actorsList.Where(x => x.Id == actor.Id).FirstOrDefault();
+                if (actor2 == null)
+                {
+                    actorsList.Add(actor); // u postmanu u BODY raw JSON api/casting POST uneses u formatu kako je GET return bilo sa viticastim zagradama, bez dodatnih provjera moze i duplicirati unose, ne javlja gresku
+                    return Request.CreateResponse(HttpStatusCode.OK, actorsList);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id occupied!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing CreateActor");
+            }
+
+            //return actorsList; //isto ne treba jer vracam hrm 
         }
 
         [HttpPut]
-        public List<Actor> UpdateActor(int id, [FromBody]Actor actor2) // int id je prvo da u postmanu kao i gore definiram id u URLu, a da ostalo trazi iz bodya
+        public HttpResponseMessage UpdateActor(int id, [FromBody]Actor actor) // int id je prvo da u postmanu kao i gore definiram id u URLu, a da ostalo trazi iz bodya
         {
-            Actor actor = actorsList.Find(x => x.Id == id); // ovo u zagradi mi je autopopunio
-            actor.Name = actor2.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
-            actor.Gender = actor2.Gender;
+            try
+            {
+                Actor actor2 = actorsList.Where(x => x.Id == id).FirstOrDefault();
+                if (actor2 != null)
+                {
+                    //Actor actor2 = actorsList.Find(x => x.Id == id); // ovo u zagradi mi je autopopunio
+                    actor2.Name = actor.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
+                    actor2.Gender = actor.Gender;
 
-            return actorsList;
+                    return Request.CreateResponse(HttpStatusCode.OK, actorsList);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No actors to update here!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing UpdateActor");
+            }
         }
+            
+            
+
+            //return actorsList;
+        
 
         [HttpDelete]
         public List<Actor> DeleteActor(int id) // api/casting/id i obrisat ce tog glumca
