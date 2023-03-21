@@ -56,6 +56,14 @@ namespace Zadatak.WebApi
             return actorsList;
         }
 
+        [HttpDelete]
+        public List<Actor> DeleteActor(int id) 
+        {
+            Actor actor = actorsList.Find(x => x.Id == id);
+            actorsList.Remove(actor);
+            return actorsList;
+        }
+
 
         /*
         // GET api/casting
