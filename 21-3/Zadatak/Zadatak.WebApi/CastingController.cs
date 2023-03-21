@@ -53,7 +53,7 @@ namespace Zadatak.WebApi
             }
             catch (Exception ex) 
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing GetActor");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetActor: {ex.Message}");
             }
         }
 
@@ -63,8 +63,8 @@ namespace Zadatak.WebApi
         {
             try
             {
-                Actor actor2 =  actorsList.Where(x => x.Id == actor.Id).FirstOrDefault();
-                if (actor2 == null)
+                Actor newActor =  actorsList.Where(x => x.Id == actor.Id).FirstOrDefault();
+                if (newActor == null)
                 {
                     actorsList.Add(actor); // u postmanu u BODY raw JSON api/casting POST uneses u formatu kako je GET return bilo sa viticastim zagradama, bez dodatnih provjera moze i duplicirati unose, ne javlja gresku
                     return Request.CreateResponse(HttpStatusCode.OK, actorsList);
@@ -76,7 +76,7 @@ namespace Zadatak.WebApi
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing CreateActor");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing CreateActor: {ex.Message}");
             }
 
             //return actorsList; //isto ne treba jer vracam hrm 
@@ -87,12 +87,12 @@ namespace Zadatak.WebApi
         {
             try
             {
-                Actor actor2 = actorsList.Where(x => x.Id == id).FirstOrDefault();
-                if (actor2 != null)
+                Actor updatedActor = actorsList.Where(x => x.Id == id).FirstOrDefault();
+                if (updatedActor != null)
                 {
                     //Actor actor2 = actorsList.Find(x => x.Id == id); // ovo u zagradi mi je autopopunio
-                    actor2.Name = actor.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
-                    actor2.Gender = actor.Gender;
+                    updatedActor.Name = string.IsNullOrWhiteSpace(actor.Name) ? updatedActor.Name : actor.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
+                    updatedActor.Gender = string.IsNullOrWhiteSpace(actor.Gender) ? updatedActor.Gender : actor.Gender; //provjera jel sam unio izmjenu za name/gender, ako nisam da promjena bude vec postojeci name/gender
 
                     return Request.CreateResponse<List<Actor>>(HttpStatusCode.OK, actorsList); // unutar <> definira tip returna, kod mene lista, ali mogu i bez toga
                 }
@@ -103,7 +103,7 @@ namespace Zadatak.WebApi
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing UpdateActor");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing UpdateActor: {ex.Message}");
                 //return actorsList;            
             }
         } 
@@ -128,7 +128,7 @@ namespace Zadatak.WebApi
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing DeleteActor");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing DeleteActor: {ex.Message}");
                 //return actorsList;            
             }
         }
