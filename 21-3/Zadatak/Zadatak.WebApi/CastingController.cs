@@ -34,14 +34,31 @@ namespace Zadatak.WebApi
         }
 
         [HttpGet]
-        public Actor GetActor(int id) // ovaj Actor je isto novi i jednina je samo da se razlikuje od ranijeg Actors
-        { 
-            return actorsList[id]; // api/casting/[id] sa GET
+        public HttpResponseMessage GetActor(int id) // ovaj Actor je isto novi i jednina je samo da se razlikuje od ranijeg Actors
+        {
+            try
+            {
+                Actor actor = actorsList.Where(x => x.Id == id).FirstOrDefault();
+                if (actor != null)
+                {
+                    return Request.CreateResponse<Actor>(HttpStatusCode.OK, actor);
+
+                    //return actorsList[id]; // api/casting/[id] sa GET
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No actors here!");
+                }                
+            }
+            catch (Exception ex) 
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing GetActor");
+            }
         }
 
         [HttpPost]
         public List<Actor> CreateActor([FromBody] Actor actor)
-        { 
+        {
             actorsList.Add(actor); // u postmanu u BODY raw JSON api/casting POST uneses u formatu kako je GET return bilo sa viticastim zagradama, bez dodatnih provjera moze i duplicirati unose, ne javlja gresku
             return actorsList;
         }
@@ -57,41 +74,11 @@ namespace Zadatak.WebApi
         }
 
         [HttpDelete]
-        public List<Actor> DeleteActor(int id) 
+        public List<Actor> DeleteActor(int id) // api/casting/id i obrisat ce tog glumca
         {
             Actor actor = actorsList.Find(x => x.Id == id);
             actorsList.Remove(actor);
             return actorsList;
         }
-
-
-        /*
-        // GET api/casting
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/casting/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/casting
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/casting/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/casting/5
-        public void Delete(int id)
-        {
-        }
-        */
     }
 }
