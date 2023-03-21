@@ -66,9 +66,16 @@ namespace Zadatak.WebApi
                 Actor newActor =  actorsList.Where(x => x.Id == actor.Id).FirstOrDefault();
                 if (newActor == null)
                 {
-                    actorsList.Add(actor); // u postmanu u BODY raw JSON api/casting POST uneses u formatu kako je GET return bilo sa viticastim zagradama, bez dodatnih provjera moze i duplicirati unose, ne javlja gresku
-                    return Request.CreateResponse(HttpStatusCode.OK, actorsList);
-                }
+                    if (ModelState.IsValid) //provjerava jel unos postuje requirement zadan u klasi (ovdje Actor Id da je izmedju 1 i 10)
+                    {
+                        actorsList.Add(actor); // u postmanu u BODY raw JSON api/casting POST uneses u formatu kako je GET return bilo sa viticastim zagradama, bez dodatnih provjera moze i duplicirati unose, ne javlja gresku
+                        return Request.CreateResponse(HttpStatusCode.OK, actorsList);
+                    }
+                    else
+                    { 
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    }
+            }
                 else
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "ID occupied!");
@@ -90,11 +97,18 @@ namespace Zadatak.WebApi
                 Actor updatedActor = actorsList.Where(x => x.Id == id).FirstOrDefault();
                 if (updatedActor != null)
                 {
-                    //Actor actor2 = actorsList.Find(x => x.Id == id); // ovo u zagradi mi je autopopunio
-                    updatedActor.Name = string.IsNullOrWhiteSpace(actor.Name) ? updatedActor.Name : actor.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
-                    updatedActor.Gender = string.IsNullOrWhiteSpace(actor.Gender) ? updatedActor.Gender : actor.Gender; //provjera jel sam unio izmjenu za name/gender, ako nisam da promjena bude vec postojeci name/gender
+                    if (ModelState.IsValid)
+                    {
+                        //Actor actor2 = actorsList.Find(x => x.Id == id); // ovo u zagradi mi je autopopunio
+                        updatedActor.Name = string.IsNullOrWhiteSpace(actor.Name) ? updatedActor.Name : actor.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
+                        updatedActor.Gender = string.IsNullOrWhiteSpace(actor.Gender) ? updatedActor.Gender : actor.Gender; //provjera jel sam unio izmjenu za name/gender, ako nisam da promjena bude vec postojeci name/gender
 
-                    return Request.CreateResponse<List<Actor>>(HttpStatusCode.OK, actorsList); // unutar <> definira tip returna, kod mene lista, ali mogu i bez toga
+                        return Request.CreateResponse<List<Actor>>(HttpStatusCode.OK, actorsList); // unutar <> definira tip returna, kod mene lista, ali mogu i bez toga
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    }
                 }
                 else
                 {
