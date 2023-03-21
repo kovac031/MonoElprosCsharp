@@ -33,6 +33,19 @@ namespace Zadatak.WebApi
             return actorsList; // https(dvotocka)//localhost:44333/api/casting jer je casting controller
         }
 
+        [HttpGet]
+        public Actor GetActor(int id) // ovaj Actor je isto novi i jednina je samo da se razlikuje od ranijeg Actors
+        { 
+            return actorsList[id]; // api/casting/[id] sa GET
+        }
+
+        [HttpPost]
+        public List<Actor> CreateActor([FromBody] Actor actor)
+        { 
+            actorsList.Add(actor); // u postmanu u BODY raw JSON api/casting POST uneses u formatu kako je GET return bilo sa viticastim zagradama, bez dodatnih provjera moze i duplicirati unose, ne javlja gresku
+            return actorsList;
+        }
+
 
         /*
         // GET api/casting
