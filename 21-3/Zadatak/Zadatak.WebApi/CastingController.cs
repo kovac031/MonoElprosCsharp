@@ -71,7 +71,7 @@ namespace Zadatak.WebApi
                 }
                 else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id occupied!");
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "ID occupied!");
                 }
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace Zadatak.WebApi
                     actor2.Name = actor.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
                     actor2.Gender = actor.Gender;
 
-                    return Request.CreateResponse(HttpStatusCode.OK, actorsList);
+                    return Request.CreateResponse<List<Actor>>(HttpStatusCode.OK, actorsList); // unutar <> definira tip returna, kod mene lista, ali mogu i bez toga
                 }
                 else
                 {
@@ -104,20 +104,34 @@ namespace Zadatak.WebApi
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing UpdateActor");
+                //return actorsList;            
+            }
+        } 
+            
+        [HttpDelete]
+        //public List<Actor> DeleteActor(int id) // api/casting/id i obrisat ce tog glumca
+        public HttpResponseMessage DeleteActor(int id)
+        {
+            try
+            {
+                Actor actor = actorsList.Find(x => x.Id == id);
+                if (actor != null)
+                {
+                    actorsList.Remove(actor);
+
+                    return Request.CreateResponse<List<Actor>>(HttpStatusCode.OK, actorsList);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No actors to delete here!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing DeleteActor");
+                //return actorsList;            
             }
         }
-            
-            
-
-            //return actorsList;
-        
-
-        [HttpDelete]
-        public List<Actor> DeleteActor(int id) // api/casting/id i obrisat ce tog glumca
-        {
-            Actor actor = actorsList.Find(x => x.Id == id);
-            actorsList.Remove(actor);
-            return actorsList;
-        }
+         
     }
 }
