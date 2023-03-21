@@ -46,6 +46,16 @@ namespace Zadatak.WebApi
             return actorsList;
         }
 
+        [HttpPut]
+        public List<Actor> UpdateActor(int id, [FromBody]Actor actor2) // int id je prvo da u postmanu kao i gore definiram id u URLu, a da ostalo trazi iz bodya
+        {
+            Actor actor = actorsList.Find(x => x.Id == id); // ovo u zagradi mi je autopopunio
+            actor.Name = actor2.Name; // e sad tu su actor i actor 2 varijable samo za ovu primjenu, actor2 je za ono sto ja unesem u body a actor je za ono sta mi ispise za updejtanog glumca
+            actor.Gender = actor2.Gender;
+
+            return actorsList;
+        }
+
 
         /*
         // GET api/casting
