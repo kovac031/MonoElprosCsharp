@@ -105,7 +105,7 @@ namespace PovezivanjeSbazom.WebApi
         }
 
         [HttpGet]
-        [Route("api/test/{id}")] // mora id u viticastima inace ne radi, neznam zasto
+        [Route("api/test/getid/{id}")] // mora id u viticastima inace ne radi, neznam zasto
         public HttpResponseMessage GetId(Guid id)
         {
             try
@@ -152,12 +152,42 @@ namespace PovezivanjeSbazom.WebApi
             }
         }
 
+        [HttpPost]
+        [Route("api/test/post")] // mora id u viticastima inace ne radi, neznam zasto
+        public HttpResponseMessage Post([FromBody] FilmClass film)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString); //conn je connection
 
+                using (conn)
+                {
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Film VALUES (@id, @title, @release, @genre, @duration);", conn);
+                    
+                    cmd.Parameters.AddWithValue("@id", film.Id);
+                    cmd.Parameters.AddWithValue("@title", film.Title);
+                    cmd.Parameters.AddWithValue("@release", film.Release);
+                    cmd.Parameters.AddWithValue("@genre", film.Genre);
+                    cmd.Parameters.AddWithValue("@duration", film.Duration);
+                    conn.Open();
 
+                    if(cmd.ExecuteNonQuery()<0)
+                    {
+                        List<FilmClass> filmList = new List<FilmClass>();
 
-        /*
-        [HttpGet]
-            // Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True
-            SqlConnection connection = new SqlConnection();*/
+                        return Request.CreateResponse(HttpStatusCode.OK, filmList);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No NEW movies!");
+                    }
+                }   // zatvorio conn, prestao using                        
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing Post: {ex.Message}");
+            }
+        }//unese sta mu napisem ali ne generira guid nego unese sa 0000 sve i javi else message
+
     }  
 }
