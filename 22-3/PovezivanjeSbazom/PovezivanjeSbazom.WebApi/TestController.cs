@@ -104,6 +104,53 @@ namespace PovezivanjeSbazom.WebApi
             }
         }
 
+        [HttpGet]
+        [Route("api/test/{id}")] // mora id u viticastima inace ne radi, neznam zasto
+        public HttpResponseMessage GetId(Guid id)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString); //conn je connection
+
+                using (conn)
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Film WHERE Id = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", id); // unesemo u URL id koji smo definirali kao @id, koji ce bit usporedjen sa Id iz Film tablice
+                    conn.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    //List<FilmClass> filmList = new List<FilmClass>(); // ne treba lista jel vracamo jedan rezultat
+
+                    if (reader.HasRows)
+                    {
+                        //while (reader.Read()) // ne treba while petlja jer zbog GUIDa ima samo jedan moguci rezultat
+                        //{
+                            reader.Read();
+                            FilmClass film = new FilmClass();
+
+                            film.Id = reader.GetGuid(0);
+                            film.Title = reader.GetString(1);
+                            film.Release = reader.GetInt32(2);
+                            film.Genre = reader.GetString(3);
+                            film.Duration = reader.GetInt32(4);
+
+                           // filmList.Add(film);
+                        //}
+                        reader.Close();
+                        return Request.CreateResponse(HttpStatusCode.OK, film);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No movies here!");
+                    }
+                }   // zatvorio conn, prestao using                        
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetId: {ex.Message}");
+            }
+        }
 
 
 
