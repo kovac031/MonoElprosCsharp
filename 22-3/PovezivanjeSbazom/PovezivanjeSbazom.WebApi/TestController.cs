@@ -15,6 +15,7 @@ namespace PovezivanjeSbazom.WebApi
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
 
         [HttpGet]
+        [Route ("api/test/getfilms")]
         public HttpResponseMessage GetFilms()
         {
             try
@@ -50,7 +51,7 @@ namespace PovezivanjeSbazom.WebApi
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No movies here!");
                     }
-                }                                
+                }   // zatvorio conn, prestao using                        
             }
             catch (Exception ex)
             {
@@ -58,7 +59,50 @@ namespace PovezivanjeSbazom.WebApi
             }
         }
 
+        [HttpGet]
+        [Route("api/test/getwhere")]
+        public HttpResponseMessage GetWhere()
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString); //conn je connection
 
+                using (conn)
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Film WHERE \"Duration\">121", conn);
+                    conn.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<FilmClass> filmList = new List<FilmClass>();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            FilmClass film = new FilmClass();
+
+                            film.Id = reader.GetGuid(0);
+                            film.Title = reader.GetString(1);
+                            film.Release = reader.GetInt32(2);
+                            film.Genre = reader.GetString(3);
+                            film.Duration = reader.GetInt32(4);
+
+                            filmList.Add(film);
+                        }
+                        reader.Close();
+                        return Request.CreateResponse(HttpStatusCode.OK, filmList);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No movies here!");
+                    }
+                }   // zatvorio conn, prestao using                        
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetWhere: {ex.Message}");
+            }
+        }
 
 
 
