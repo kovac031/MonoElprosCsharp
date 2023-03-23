@@ -153,7 +153,7 @@ namespace PovezivanjeSbazom.WebApi
         }
 
         [HttpPost]
-        [Route("api/test/post")] // mora id u viticastima inace ne radi, neznam zasto
+        [Route("api/test/post")]
         public HttpResponseMessage Post([FromBody] FilmClass film)
         {
             try
@@ -163,7 +163,8 @@ namespace PovezivanjeSbazom.WebApi
                 using (conn)
                 {
                     SqlCommand cmd = new SqlCommand("INSERT INTO Film VALUES (@id, @title, @release, @genre, @duration);", conn);
-                    
+
+                    film.Id = new Guid();
                     cmd.Parameters.AddWithValue("@id", film.Id);
                     cmd.Parameters.AddWithValue("@title", film.Title);
                     cmd.Parameters.AddWithValue("@release", film.Release);
