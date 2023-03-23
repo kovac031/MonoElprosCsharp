@@ -214,9 +214,9 @@ namespace PovezivanjeSbazom.WebApi
 
                         //film.Id = new Guid();
                         cmdU.Parameters.AddWithValue("@id", id);
-                        cmdU.Parameters.AddWithValue("@title", film.Title = string.IsNullOrWhiteSpace(film.Title) ? "@title" : film.Title);
-                        cmdU.Parameters.AddWithValue("@release", film.Release); //pitat kako za int napravit provjeru
-                        cmdU.Parameters.AddWithValue("@genre", film.Genre = string.IsNullOrWhiteSpace(film.Genre) ? "@genre" : film.Genre);
+                        cmdU.Parameters.AddWithValue("@title", film.Title); //= string.IsNullOrWhiteSpace(film.Title) ? "@title" : film.Title); ovo nece nista pametno napravit, trebam promijenit
+                        cmdU.Parameters.AddWithValue("@release", film.Release); //provjeru mogu sa je ili nije 0 jer je default vrijednost
+                        cmdU.Parameters.AddWithValue("@genre", film.Genre); // = string.IsNullOrWhiteSpace(film.Genre) ? "@genre" : film.Genre);
                         cmdU.Parameters.AddWithValue("@duration", film.Duration);
                         
                         reader.Close();
