@@ -160,6 +160,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\FilmController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +303,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kino.Common\Kino.Common.csproj">
+      <Project>{a8845a9d-26ec-4a70-9869-a9973510652d}</Project>
+      <Name>Kino.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Model\Kino.Model.csproj">
+      <Project>{b16c981d-ce8e-4be2-9509-bd1a4a828c2c}</Project>
+      <Name>Kino.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Service\Kino.Service.csproj">
+      <Project>{441364f6-4c6d-4ecd-965b-b064f0a1b902}</Project>
+      <Name>Kino.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

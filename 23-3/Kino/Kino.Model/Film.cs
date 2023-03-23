@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Kino.Model
 {
-    public class Class1
+    public class Film
     {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public int Release { get; set; }
+        public string Genre { get; set; }
+        public int Duration { get; set; }
     }
 }

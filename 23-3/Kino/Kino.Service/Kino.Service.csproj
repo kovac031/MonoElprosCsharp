@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>441364f6-4c6d-4ecd-965b-b064f0a1b902</ProjectGuid>
+    <ProjectGuid>{441364F6-4C6D-4ECD-965B-B064F0A1B902}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Kino.Service</RootNamespace>
@@ -31,24 +31,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="FilmService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kino.Common\Kino.Common.csproj">
+      <Project>{a8845a9d-26ec-4a70-9869-a9973510652d}</Project>
+      <Name>Kino.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Model\Kino.Model.csproj">
+      <Project>{b16c981d-ce8e-4be2-9509-bd1a4a828c2c}</Project>
+      <Name>Kino.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Repository\Kino.Repository.csproj">
+      <Project>{40b575d6-c7c2-4d6b-bb30-c1262958ab0f}</Project>
+      <Name>Kino.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Service.Common\Kino.Service.Common.csproj">
+      <Project>{9e7b0855-b840-4a6a-978d-ae06008321ca}</Project>
+      <Name>Kino.Service.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
- </Project>
+</Project>

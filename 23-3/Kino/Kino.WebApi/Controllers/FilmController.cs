@@ -1,39 +1,33 @@
-﻿using System;
+﻿using Kino.Model;
+using Kino.Service;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
 
 namespace Kino.WebApi
 {
-    public class KinoController : ApiController
+    public class FilmController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("api/film/getall")]
+        public HttpResponseMessage GetAll()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            FilmService service = new FilmService();
+            List<Film> filmList = service.GetAll();
+            
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, filmList);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetFilms: {ex.Message}");
+            }
         }
     }
 }
