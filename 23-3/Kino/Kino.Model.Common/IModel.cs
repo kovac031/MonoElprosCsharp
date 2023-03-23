@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kino.Repository.Common
+namespace Kino.Model.Common
 {
-    public class Class1
+    internal interface IModel
     {
     }
 }

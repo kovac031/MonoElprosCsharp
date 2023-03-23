@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kino.Service.Common
 {
-    public class Class1
+    internal interface IService
     {
     }
 }
