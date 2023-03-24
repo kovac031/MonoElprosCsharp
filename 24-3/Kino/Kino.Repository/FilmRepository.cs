@@ -183,5 +183,66 @@ namespace Kino.Repository
             }
         }
 
+        public List<Film> Delete(string id)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString);
+
+                using (conn)
+                {
+                    SqlCommand cmdS = new SqlCommand("SELECT * FROM Film WHERE Id = @id", conn);
+                    cmdS.Parameters.AddWithValue("@id", id);
+                    conn.Open();
+
+                    SqlDataReader reader = cmdS.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        SqlCommand cmdU = new SqlCommand("DELETE FROM Film WHERE Id = @id;", conn);
+
+                        cmdU.Parameters.AddWithValue("@id", id);
+                        
+                        //reader.Close();
+
+                        if (cmdU.ExecuteNonQuery() > 0)
+                        {
+
+                            List<Film> filmList = GetAll();
+                            /* List<Film> filmList = new List<Film>();
+                            Film film = new Film();
+                            
+                            while (reader.Read())
+                            {
+                                film.Id = reader.GetGuid(0);
+                                film.Title = reader.GetString(1);
+                                film.Release = reader.GetInt32(2);
+                                film.Genre = reader.GetString(3);
+                                film.Duration = reader.GetInt32(4);
+
+                                filmList.Add(film);
+                            }                           
+
+                            reader.Close();*/
+                            return filmList;
+
+                        }
+                        else
+                        {
+                            return (null);
+                        }
+                    }
+                    else
+                    {
+                        return (null);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return (null);
+            }
+        }
+
     }
 }

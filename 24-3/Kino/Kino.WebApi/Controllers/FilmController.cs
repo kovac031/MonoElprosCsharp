@@ -81,5 +81,22 @@ namespace Kino.WebApi
             }
         }
 
+        [HttpDelete]
+        [Route("api/film/del/{id}")]
+        public HttpResponseMessage Delete(string id)
+        {
+            FilmService service = new FilmService();
+
+            try
+            {
+                List<Film> filmList = service.Delete(id);
+                return Request.CreateResponse(HttpStatusCode.OK, filmList);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing Put: {ex.Message}");
+            }
+        }
+
     }
 }

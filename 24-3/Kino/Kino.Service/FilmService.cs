@@ -37,5 +37,12 @@ namespace Kino.Service
             Film filmService = repository.Put(id, film);
             return filmService;
         }
+
+        public List<Film> Delete(string id)
+        {
+            FilmRepository repository = new FilmRepository();
+            List<Film> filmService = repository.Delete(id);
+            return filmService;
+        }
     }
 }
