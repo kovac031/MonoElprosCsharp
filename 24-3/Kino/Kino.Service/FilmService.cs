@@ -16,7 +16,13 @@ namespace Kino.Service
             List<Film> filmList = repository.GetAll();
             return filmList;
         }
-        
-        
+
+        public Film GetById(Guid id)
+        {
+            FilmRepository repository = new FilmRepository();
+            Film film = repository.GetById(id);
+            return film;
+        }
+
     }
 }

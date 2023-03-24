@@ -26,7 +26,7 @@ namespace Kino.Repository
                     conn.Open();
 
                     SqlDataReader reader = cmd.ExecuteReader();
-
+                    
                     //Kino.Model.Film film = new Kino.Model.Film(); // ne treba, vidi ga
 
                     List<Film> filmList = new List<Film>();
@@ -46,6 +46,50 @@ namespace Kino.Repository
                         }
                         reader.Close();
                         return filmList;
+                    }
+                    else
+                    {
+                        return (null);
+                    }
+                }   // zatvorio conn, prestao using                        
+            }
+            catch (Exception)
+            {
+                return (null);
+            }
+        }
+
+        public Film GetById(Guid id)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString);
+
+                using (conn)
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Film WHERE Id = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    conn.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        Film film = new Film(); //stavio tu jer return film mora ici iza while a unutar if petlje, inace javlja not all paths return value
+
+                        while (reader.Read())
+                        {
+                            //Film film = new Film();
+
+                            film.Id = reader.GetGuid(0);
+                            film.Title = reader.GetString(1);
+                            film.Release = reader.GetInt32(2);
+                            film.Genre = reader.GetString(3);
+                            film.Duration = reader.GetInt32(4);
+                            //return film;
+                        }
+                        reader.Close();
+                        return film;
                     }
                     else
                     {

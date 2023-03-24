@@ -18,15 +18,32 @@ namespace Kino.WebApi
         public HttpResponseMessage GetAll()
         {
             FilmService service = new FilmService();
-            List<Film> filmList = service.GetAll();
-            
+                        
             try
             {
+                List<Film> filmList = service.GetAll();
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetFilms: {ex.Message}");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetAll: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("api/film/getbyid/{id}")]
+        public HttpResponseMessage GetById(Guid id)
+        {
+            FilmService service = new FilmService();
+
+            try
+            {
+                Film film = service.GetById(id);
+                return Request.CreateResponse(HttpStatusCode.OK, film);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetById: {ex.Message}");
             }
         }
     }
