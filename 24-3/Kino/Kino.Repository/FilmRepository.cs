@@ -14,7 +14,7 @@ namespace Kino.Repository
     {
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
 
-        public List<Film> GetAll() // vracam listu pa zato
+        public async Task<List<Film>> GetAllAsync() // vracam listu pa zato
         {
             try
             {
@@ -25,7 +25,7 @@ namespace Kino.Repository
                     SqlCommand cmd = new SqlCommand("SELECT * FROM Film", conn);
                     conn.Open();
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = await cmd.ExecuteReaderAsync();
                     
                     //Kino.Model.Film film = new Kino.Model.Film(); // ne treba, vidi ga
 
@@ -58,7 +58,7 @@ namespace Kino.Repository
                 return (null);
             }
         }
-
+        /*
         public Film GetById(Guid id)
         {
             try
@@ -102,7 +102,8 @@ namespace Kino.Repository
                 return (null);
             }
         }
-
+        */
+        /*
         public Film Post(Film film)
         {
             try
@@ -135,7 +136,8 @@ namespace Kino.Repository
                 return (null);
             }
         }
-
+        */
+        /*
         public Film Put(string id, Film film)
         {
             try
@@ -182,7 +184,8 @@ namespace Kino.Repository
                 return (null);
             }
         }
-
+        */
+        /*
         public List<Film> Delete(string id)
         {
             try
@@ -203,27 +206,27 @@ namespace Kino.Repository
 
                         cmdU.Parameters.AddWithValue("@id", id);
                         
-                        //reader.Close();
+                        reader.Close();
 
                         if (cmdU.ExecuteNonQuery() > 0)
                         {
 
                             List<Film> filmList = GetAll();
-                            /* List<Film> filmList = new List<Film>();
-                            Film film = new Film();
+                            // List<Film> filmList = new List<Film>();
+                            //Film film = new Film();
                             
-                            while (reader.Read())
-                            {
-                                film.Id = reader.GetGuid(0);
-                                film.Title = reader.GetString(1);
-                                film.Release = reader.GetInt32(2);
-                                film.Genre = reader.GetString(3);
-                                film.Duration = reader.GetInt32(4);
+                            //while (reader.Read())
+                            //{
+                            //    film.Id = reader.GetGuid(0);
+                            //    film.Title = reader.GetString(1);
+                            //    film.Release = reader.GetInt32(2);
+                            //    film.Genre = reader.GetString(3);
+                            //    film.Duration = reader.GetInt32(4);
 
-                                filmList.Add(film);
-                            }                           
+                            //    filmList.Add(film);
+                            //}                           
 
-                            reader.Close();*/
+                            //reader.Close();
                             return filmList;
 
                         }
@@ -242,7 +245,7 @@ namespace Kino.Repository
             {
                 return (null);
             }
-        }
+        }*/
 
     }
 }

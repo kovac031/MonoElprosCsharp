@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Kino.WebApi
@@ -15,13 +16,13 @@ namespace Kino.WebApi
     {
         [HttpGet]
         [Route("api/film/getall")]
-        public HttpResponseMessage GetAll()
+        public async Task<HttpResponseMessage> GetAllAsync()
         {
             FilmService service = new FilmService();
                         
             try
             {
-                List<Film> filmList = service.GetAll();
+                List<Film> filmList = await service.GetAllAsync();
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)
@@ -29,16 +30,16 @@ namespace Kino.WebApi
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetAll: {ex.Message}");
             }
         }
-
+        
         [HttpGet]
         [Route("api/film/getbyid/{id}")]
-        public HttpResponseMessage GetById(Guid id)
+        public async Task<HttpResponseMessage> GetByIdAsync(Guid id)
         {
             FilmService service = new FilmService();
 
             try
             {
-                Film film = service.GetById(id);
+                Film film = await service.GetByIdAsync(id);
                 return Request.CreateResponse(HttpStatusCode.OK, film);
             }
             catch (Exception ex)
@@ -46,16 +47,16 @@ namespace Kino.WebApi
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetById: {ex.Message}");
             }
         }
-
+        
         [HttpPost]
         [Route("api/film/post")]
-        public HttpResponseMessage Post(Film filmService)
+        public async Task<HttpResponseMessage> PostAsync(Film filmService)
         {
             FilmService service = new FilmService();
 
             try
             {
-                Film film = service.Post(filmService);
+                Film film = await service.PostAsync(filmService);
                 return Request.CreateResponse(HttpStatusCode.OK, film);
             }
             catch (Exception ex)
@@ -66,13 +67,13 @@ namespace Kino.WebApi
 
         [HttpPut]
         [Route("api/film/put/{id}")]
-        public HttpResponseMessage Put(string id, Film filmService)
+        public async Task<HttpResponseMessage> PutAsync(string id, Film filmService)
         {
             FilmService service = new FilmService();
 
             try
             {
-                Film film = service.Put(id, filmService);
+                Film film = await service.PutAsync(id, filmService);
                 return Request.CreateResponse(HttpStatusCode.OK, film);
             }
             catch (Exception ex)
@@ -83,13 +84,13 @@ namespace Kino.WebApi
 
         [HttpDelete]
         [Route("api/film/del/{id}")]
-        public HttpResponseMessage Delete(string id)
+        public async Task<HttpResponseMessage> DeleteAsync(string id)
         {
             FilmService service = new FilmService();
 
             try
             {
-                List<Film> filmList = service.Delete(id);
+                List<Film> filmList = await service.DeleteAsync(id);
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)
@@ -97,6 +98,6 @@ namespace Kino.WebApi
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing Put: {ex.Message}");
             }
         }
-
+        
     }
 }

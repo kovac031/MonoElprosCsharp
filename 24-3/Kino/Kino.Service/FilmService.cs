@@ -10,13 +10,13 @@ namespace Kino.Service
 {
     public class FilmService
     {
-        public List<Film> GetAll()
+        public async Task<List<Film>> GetAllAsync()
         {
             FilmRepository repository = new FilmRepository();
-            List<Film> filmList = repository.GetAll();
+            List<Film> filmList = await repository.GetAllAsync();
             return filmList;
         }
-
+        /*
         public Film GetById(Guid id)
         {
             FilmRepository repository = new FilmRepository();
@@ -43,6 +43,6 @@ namespace Kino.Service
             FilmRepository repository = new FilmRepository();
             List<Film> filmService = repository.Delete(id);
             return filmService;
-        }
+        }*/
     }
 }
