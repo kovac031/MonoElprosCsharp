@@ -7,10 +7,11 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Kino.Model;
+using Kino.Repository.Common;
 
 namespace Kino.Repository
 {
-    public class FilmRepository
+    public class FilmRepository : IRepository
     {
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
 
@@ -58,8 +59,8 @@ namespace Kino.Repository
                 return (null);
             }
         }
-        /*
-        public Film GetById(Guid id)
+        
+        public async Task<Film> GetByIdAsync(Guid id)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace Kino.Repository
                     cmd.Parameters.AddWithValue("@id", id);
                     conn.Open();
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
                     if (reader.HasRows)
                     {
@@ -102,9 +103,9 @@ namespace Kino.Repository
                 return (null);
             }
         }
-        */
-        /*
-        public Film Post(Film film)
+        
+        
+        public async Task<Film> PostAsync(Film film)
         {
             try
             {
@@ -136,9 +137,9 @@ namespace Kino.Repository
                 return (null);
             }
         }
-        */
-        /*
-        public Film Put(string id, Film film)
+        
+        
+        public async Task<Film> PutAsync(string id, Film film)
         {
             try
             {
@@ -150,7 +151,7 @@ namespace Kino.Repository
                     cmdS.Parameters.AddWithValue("@id", id); 
                     conn.Open();
 
-                    SqlDataReader reader = cmdS.ExecuteReader();
+                    SqlDataReader reader = await cmdS.ExecuteReaderAsync();
 
                     if (reader.HasRows)
                     {
@@ -184,9 +185,9 @@ namespace Kino.Repository
                 return (null);
             }
         }
-        */
-        /*
-        public List<Film> Delete(string id)
+        
+        
+        public async Task<List<Film>> DeleteAsync(string id)
         {
             try
             {
@@ -198,7 +199,7 @@ namespace Kino.Repository
                     cmdS.Parameters.AddWithValue("@id", id);
                     conn.Open();
 
-                    SqlDataReader reader = cmdS.ExecuteReader();
+                    SqlDataReader reader = await cmdS.ExecuteReaderAsync();
 
                     if (reader.HasRows)
                     {
@@ -211,7 +212,7 @@ namespace Kino.Repository
                         if (cmdU.ExecuteNonQuery() > 0)
                         {
 
-                            List<Film> filmList = GetAll();
+                            List<Film> filmList = await GetAllAsync(); // jer je async mora ici await
                             // List<Film> filmList = new List<Film>();
                             //Film film = new Film();
                             
@@ -245,7 +246,7 @@ namespace Kino.Repository
             {
                 return (null);
             }
-        }*/
+        }
 
     }
 }

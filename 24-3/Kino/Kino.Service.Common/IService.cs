@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kino.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,13 @@ using System.Threading.Tasks;
 
 namespace Kino.Service.Common
 {
-    internal interface IService
+    public interface IService
     {
+        Task<List<Film>> GetAllAsync();
+        Task<Film> GetByIdAsync(Guid id);
+        Task<Film> PostAsync(Film film);
+        Task<Film> PutAsync(string id, Film film);
+        Task<List<Film>> DeleteAsync(string id);
+
     }
 }

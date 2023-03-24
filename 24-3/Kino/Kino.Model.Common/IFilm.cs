@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Kino.Model.Common
 {
-    internal interface IModel
+    public interface IFilm
     {
+        Guid Id { get; set; }
+        string Title { get; set; }
+        string Genre { get; set; }
+        int Duration { get; set; }
+
     }
 }

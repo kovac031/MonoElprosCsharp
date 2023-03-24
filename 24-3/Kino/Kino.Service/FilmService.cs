@@ -1,5 +1,6 @@
 ﻿using Kino.Model;
 using Kino.Repository;
+using Kino.Service.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kino.Service
 {
-    public class FilmService
+    public class FilmService : IService
     {
         public async Task<List<Film>> GetAllAsync()
         {
@@ -16,33 +17,33 @@ namespace Kino.Service
             List<Film> filmList = await repository.GetAllAsync();
             return filmList;
         }
-        /*
-        public Film GetById(Guid id)
+        
+        public async Task<Film> GetByIdAsync(Guid id)
         {
             FilmRepository repository = new FilmRepository();
-            Film film = repository.GetById(id);
+            Film film = await repository.GetByIdAsync(id);
             return film;
         }
-
-        public Film Post(Film film)
+        
+        public async Task<Film> PostAsync(Film film)
         {
             FilmRepository repository = new FilmRepository();
-            Film filmService = repository.Post(film);
+            Film filmService = await repository.PostAsync(film);
             return filmService;
         }
-
-        public Film Put(string id, Film film)
+        
+        public async Task<Film> PutAsync(string id, Film film)
         {
             FilmRepository repository = new FilmRepository();
-            Film filmService = repository.Put(id, film);
+            Film filmService = await repository.PutAsync(id, film);
             return filmService;
         }
-
-        public List<Film> Delete(string id)
+        
+        public async Task<List<Film>> DeleteAsync(string id)
         {
             FilmRepository repository = new FilmRepository();
-            List<Film> filmService = repository.Delete(id);
+            List<Film> filmService = await repository.DeleteAsync(id);
             return filmService;
-        }*/
+        }
     }
 }
