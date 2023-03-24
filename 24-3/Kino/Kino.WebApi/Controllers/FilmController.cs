@@ -46,5 +46,40 @@ namespace Kino.WebApi
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetById: {ex.Message}");
             }
         }
+
+        [HttpPost]
+        [Route("api/film/post")]
+        public HttpResponseMessage Post(Film filmService)
+        {
+            FilmService service = new FilmService();
+
+            try
+            {
+                Film film = service.Post(filmService);
+                return Request.CreateResponse(HttpStatusCode.OK, film);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing Post: {ex.Message}");
+            }
+        }
+
+        [HttpPut]
+        [Route("api/film/put/{id}")]
+        public HttpResponseMessage Put(string id, Film filmService)
+        {
+            FilmService service = new FilmService();
+
+            try
+            {
+                Film film = service.Put(id, filmService);
+                return Request.CreateResponse(HttpStatusCode.OK, film);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing Put: {ex.Message}");
+            }
+        }
+
     }
 }

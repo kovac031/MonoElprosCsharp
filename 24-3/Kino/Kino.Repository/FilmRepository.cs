@@ -102,5 +102,86 @@ namespace Kino.Repository
                 return (null);
             }
         }
+
+        public Film Post(Film film)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString); //conn je connection
+
+                using (conn)
+                {
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Film VALUES (@id, @title, @release, @genre, @duration);", conn);
+
+                    cmd.Parameters.AddWithValue("@id", film.Id=Guid.NewGuid());
+                    cmd.Parameters.AddWithValue("@title", film.Title);
+                    cmd.Parameters.AddWithValue("@release", film.Release);
+                    cmd.Parameters.AddWithValue("@genre", film.Genre);
+                    cmd.Parameters.AddWithValue("@duration", film.Duration);
+                    conn.Open();
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        return film;
+                    }
+                    else
+                    {
+                        return (null);
+                    }
+                }   // zatvorio conn, prestao using                        
+            }
+            catch (Exception)
+            {
+                return (null);
+            }
+        }
+
+        public Film Put(string id, Film film)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionString); 
+
+                using (conn)
+                {
+                    SqlCommand cmdS = new SqlCommand("SELECT * FROM Film WHERE Id = @id", conn);
+                    cmdS.Parameters.AddWithValue("@id", id); 
+                    conn.Open();
+
+                    SqlDataReader reader = cmdS.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        SqlCommand cmdU = new SqlCommand("UPDATE Film SET Title = @title, Release = @release, Genre = @genre, Duration = @duration WHERE Id = @id;", conn);
+
+                        cmdU.Parameters.AddWithValue("@id", id);
+                        cmdU.Parameters.AddWithValue("@title", film.Title); 
+                        cmdU.Parameters.AddWithValue("@release", film.Release); 
+                        cmdU.Parameters.AddWithValue("@genre", film.Genre); 
+                        cmdU.Parameters.AddWithValue("@duration", film.Duration);
+
+                        reader.Close();
+
+                        if (cmdU.ExecuteNonQuery() > 0)
+                        {
+                            return film;
+                        }
+                        else
+                        {
+                            return (null);
+                        }
+                    }
+                    else
+                    {
+                        return (null);
+                    }
+                }                       
+            }
+            catch (Exception)
+            {
+                return (null);
+            }
+        }
+
     }
 }

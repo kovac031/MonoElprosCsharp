@@ -24,5 +24,18 @@ namespace Kino.Service
             return film;
         }
 
+        public Film Post(Film film)
+        {
+            FilmRepository repository = new FilmRepository();
+            Film filmService = repository.Post(film);
+            return filmService;
+        }
+
+        public Film Put(string id, Film film)
+        {
+            FilmRepository repository = new FilmRepository();
+            Film filmService = repository.Put(id, film);
+            return filmService;
+        }
     }
 }
