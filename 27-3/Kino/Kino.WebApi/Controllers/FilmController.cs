@@ -15,6 +15,32 @@ namespace Kino.WebApi
     public class FilmController : ApiController
     {
         [HttpGet]
+        [Route("api/film/getallrest")] //rest varijanta
+        public async Task<HttpResponseMessage> GetAllRestAsync()
+        {
+            FilmService service = new FilmService();
+
+            try
+            {
+                List<Film> filmList = await service.GetAllAsync();
+                List<FilmRest> restFilms = new List<FilmRest>();
+                foreach (Film film in filmList)
+                {
+                    FilmRest restFilm = new FilmRest();
+                    restFilm.Title = film.Title;
+                    restFilm.Release = film.Release;
+                    
+                    restFilms.Add(restFilm);
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, restFilms);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetAll: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
         [Route("api/film/getall")]
         public async Task<HttpResponseMessage> GetAllAsync()
         {
@@ -95,7 +121,7 @@ namespace Kino.WebApi
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing Put: {ex.Message}");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing Delete: {ex.Message}");
             }
         }
         
