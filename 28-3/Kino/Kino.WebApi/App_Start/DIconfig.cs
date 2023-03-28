@@ -16,7 +16,7 @@ namespace Kino.WebApi.App_Start
 {
     public class DIconfig
     {
-        protected void Application_Start()
+        public static void Configure()
         {
             var builder = new ContainerBuilder();
 
@@ -26,11 +26,8 @@ namespace Kino.WebApi.App_Start
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            // OPTIONAL: Register the Autofac filter provider.
-            builder.RegisterWebApiFilterProvider(config);
-
-            // OPTIONAL: Register the Autofac model binder provider.
-            builder.RegisterWebApiModelBinderProvider();
+            builder.RegisterType<FilmService>().As<IService>();
+            builder.RegisterType<FilmRepository>().As<IRepository>();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();

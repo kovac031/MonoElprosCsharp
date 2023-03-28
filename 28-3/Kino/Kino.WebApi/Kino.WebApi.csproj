@@ -334,24 +334,24 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kino.Common\Kino.Common.csproj">
-      <Project>{a8845a9d-26ec-4a70-9869-a9973510652d}</Project>
-      <Name>Kino.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Kino.Model\Kino.Model.csproj">
-      <Project>{b16c981d-ce8e-4be2-9509-bd1a4a828c2c}</Project>
+      <Project>{B16C981D-CE8E-4BE2-9509-BD1A4A828C2C}</Project>
       <Name>Kino.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Kino.Repository.Common\Kino.Repository.Common.csproj">
       <Project>{DA8CF2DA-42DD-4528-99F8-283A7D06AF29}</Project>
       <Name>Kino.Repository.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Kino.Repository\Kino.Repository.csproj">
+      <Project>{40B575D6-C7C2-4D6B-BB30-C1262958AB0F}</Project>
+      <Name>Kino.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kino.Service.Common\Kino.Service.Common.csproj">
       <Project>{9E7B0855-B840-4A6A-978D-AE06008321CA}</Project>
       <Name>Kino.Service.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Kino.Service\Kino.Service.csproj">
-      <Project>{441364f6-4c6d-4ecd-965b-b064f0a1b902}</Project>
+      <Project>{441364F6-4C6D-4ECD-965B-B064F0A1B902}</Project>
       <Name>Kino.Service</Name>
     </ProjectReference>
   </ItemGroup>

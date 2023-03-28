@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using Kino.WebApi.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,8 @@ namespace Kino.WebApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var builder = new ContainerBuilder();
 
-            // You can register controllers all at once using assembly scanning...
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            DIconfig.Configure();
         }
     }
 }
