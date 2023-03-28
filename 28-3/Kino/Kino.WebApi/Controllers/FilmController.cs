@@ -22,6 +22,7 @@ namespace Kino.WebApi
         }
 
 
+
         [HttpGet]
         [Route("api/film/getallrest")] //rest varijanta
         public async Task<HttpResponseMessage> GetAllRestAsync()
