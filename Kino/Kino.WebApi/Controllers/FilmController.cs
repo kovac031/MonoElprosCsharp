@@ -1,4 +1,5 @@
-﻿using Kino.Model;
+﻿using Kino.Common;
+using Kino.Model;
 using Kino.Service;
 using Kino.Service.Common;
 using System;
@@ -7,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -15,13 +17,32 @@ namespace Kino.WebApi
 {
     public class FilmController : ApiController
     {
-        protected IService Service { get; set; }
-        public FilmController(IService service) 
+        protected IFilmService Service { get; set; }
+        public FilmController(IFilmService service) 
         {
             Service = service;
         }
 
+        [HttpGet]
+        [Route("api/film/getbyPSF")]
+        public HttpResponseMessage GetPagingSortingFiltering([FromUri]FilmFiltering filtering, [FromUri]Paging paging)
+        {
+            try
+            {
+                List<Film> filmList = Service.GetPagingSortingFiltering(filtering, paging);
+                return Request.CreateResponse(HttpStatusCode.OK, filmList);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing getbyPSF: {ex.Message}");
+            }
+        }
 
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////
 
         [HttpGet]
         [Route("api/film/getallrest")] //rest varijanta

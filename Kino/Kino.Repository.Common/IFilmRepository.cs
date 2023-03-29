@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kino.Repository.Common
 {
-    public interface IRepository
+    public interface IFilmRepository
     {
         Task<List<Film>> GetAllAsync();
         Task<Film> GetByIdAsync(Guid id);
