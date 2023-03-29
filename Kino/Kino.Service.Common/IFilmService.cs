@@ -1,4 +1,5 @@
-﻿using Kino.Model;
+﻿using Kino.Common;
+using Kino.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,10 @@ namespace Kino.Service.Common
         Task<Film> PostAsync(Film film);
         Task<Film> PutAsync(string id, Film film);
         Task<List<Film>> DeleteAsync(string id);
+
+        //////
+        
+        List<Film> GetPagingSortingFiltering(Paging paging, Sorting sorting, FilmFiltering filtering)
 
     }
 }
