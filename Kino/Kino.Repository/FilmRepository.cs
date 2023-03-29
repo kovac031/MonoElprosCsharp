@@ -16,7 +16,7 @@ namespace Kino.Repository
     {
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
 
-        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering)
+        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging)
         {
             SqlConnection conn = new SqlConnection(connectionString);
 
@@ -28,7 +28,7 @@ namespace Kino.Repository
                 SqlCommand cmd = new SqlCommand();
                 sb.Append("SELECT * FROM Film WHERE 1=1");
 
-                if (!string.IsNullOrWhiteSpace(filtering.Title))
+                if (!string.IsNullOrWhiteSpace(filtering.Title)) // exception ako nijedan parametar u postmanu nije selectan, kaze nesto ovdje null
                 {
                     sb.Append(" AND Title LIKE @Title");
                     cmd.Parameters.AddWithValue("@Title", filtering.Title);
@@ -73,6 +73,33 @@ namespace Kino.Repository
                     sb.Append(" AND Duration <= @MaxDuration");
                     cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
                 }
+
+                ////////////////////////////////////////////////////////////////////////
+
+                if (paging.PageNumber != null && paging.PageRows != null)
+                {
+                    sb.Append(" OFFSET @Offset ROWS FETCH NEXT @PageRows ROWS ONLY;");
+                    int? pOffset = (0 + paging.PageNumber) * paging.PageRows; 
+                    cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
+                    cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
+                    cmd.Parameters.AddWithValue("@Offset", pOffset);
+                }
+                else if (paging.PageNumber != null)
+                {
+                    sb.Append(" OFFSET @Offset ROWS FETCH NEXT 5 ROWS ONLY;");
+                    int? pOffset = (0 + paging.PageNumber) * 5;
+                    cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
+                    cmd.Parameters.AddWithValue("@Offset", pOffset);
+                }
+                else if (paging.PageRows != null)
+                {
+                    sb.Append(" OFFSET 0 ROWS FETCH NEXT @PageRows ROWS ONLY;");
+                    cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
+                }
+
+                ///////////////////////////////////////////////////////////////////////
+
+
                 cmd.Connection = conn;
                 cmd.CommandText = sb.ToString();
 
