@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kino.Service
 {
-    public class FilmService : IService
+    public class FilmService : IFilmService
     {
         public async Task<List<Film>> GetAllAsync()
         {

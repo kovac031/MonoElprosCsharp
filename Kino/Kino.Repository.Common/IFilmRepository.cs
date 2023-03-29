@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kino.Service.Common
+namespace Kino.Repository.Common
 {
-    public interface IService
+    public interface IFilmRepository
     {
         Task<List<Film>> GetAllAsync();
         Task<Film> GetByIdAsync(Guid id);
