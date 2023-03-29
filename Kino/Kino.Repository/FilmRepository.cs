@@ -8,12 +8,98 @@ using System.Text;
 using System.Threading.Tasks;
 using Kino.Model;
 using Kino.Repository.Common;
+using Kino.Common;
 
 namespace Kino.Repository
 {
-    public class FilmRepository : IRepository
+    public class FilmRepository : IFilmRepository
     {
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
+
+        public List<Film> GetPagingSortingFiltering(Paging paging, Sorting sorting, FilmFiltering filtering)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+
+            using (conn)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT * FROM Film WHERE 1=1");
+
+                if (!string.IsNullOrEmpty(filtering.Title))
+                {
+                    sb.Append(" AND Title LIKE @Title");
+                }
+
+                if (!string.IsNullOrEmpty(filtering.Genre))
+                {
+                    sb.Append(" AND Genre LIKE @Genre");
+                }
+
+                if (filtering.ReleaseMin != null && filtering.ReleaseMax != null)
+                {
+                    sb.Append(" AND Release >= @ReleaseMin AND Release <= @ReleaseMax");
+                }
+                else if (filtering.ReleaseMin != null)
+                {
+                    sb.Append(" AND Release >= @ReleaseMin");
+                }
+                else if (filtering.ReleaseMax != null)
+                {
+                    sb.Append(" AND Release <= @ReleaseMax");
+                }
+
+                if (filtering.MinDuration != null && filtering.MaxDuration != null)
+                {
+                    sb.Append(" AND Duration >= @MinDuration AND Duration <= @MaxDuration");
+                }
+                else if (filtering.MinDuration != null)
+                {
+                    sb.Append(" AND Duration >= @MinDuration");
+                }
+                else if (filtering.MaxDuration != null)
+                {
+                    sb.Append(" AND Duration <= @MaxDuration");
+                }
+                
+                SqlCommand cmd = new SqlCommand(sb.ToString(), conn);
+                
+                cmd.Parameters.AddWithValue("@Title", filtering.Title);
+                cmd.Parameters.AddWithValue("@Genre", filtering.Genre);
+                cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
+                cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
+                cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
+                cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
+
+                ////////////////////////////////////////////////////////////////////////////
+                
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                List<Film> filmList = new List<Film>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Film film = new Film();
+
+                        film.Id = reader.GetGuid(0);
+                        film.Title = reader.GetString(1);
+                        film.Release = reader.GetInt32(2);
+                        film.Genre = reader.GetString(3);
+                        film.Duration = reader.GetInt32(4);
+
+                        filmList.Add(film);
+                    }
+                    reader.Close();
+                    return filmList;
+                }
+                else
+                {
+                    return (null);
+                }
+            }
+        }
+
+
 
         public async Task<List<Film>> GetAllAsync() // vracam listu pa zato
         {
