@@ -11,7 +11,12 @@ namespace Kino.Common
     {
         public string Title { get; set; }
         public string Genre { get; set; }
-        public int Release { get; set; }
-        public int Duration { get; set; }
+        public int? Release { get; set; }
+        public int? ReleaseMin { get; set; }
+        public int? ReleaseMax { get; set; }
+        public int? Duration { get; set; }
+        public int? MinDuration { get; set; }
+        public int? MaxDuration { get; set; }
+
     }
 }

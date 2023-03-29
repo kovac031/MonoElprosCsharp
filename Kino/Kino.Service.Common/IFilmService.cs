@@ -16,9 +16,8 @@ namespace Kino.Service.Common
         Task<Film> PutAsync(string id, Film film);
         Task<List<Film>> DeleteAsync(string id);
 
-        //////
-        
-        List<Film> GetPagingSortingFiltering(Paging paging, Sorting sorting, FilmFiltering filtering)
+        ///////////////////////////////////////////////////////
+        List<Film> GetPagingSortingFiltering(FilmFiltering filtering);
 
     }
 }

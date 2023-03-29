@@ -16,62 +16,68 @@ namespace Kino.Repository
     {
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
 
-        public List<Film> GetPagingSortingFiltering(Paging paging, Sorting sorting, FilmFiltering filtering)
+        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering)
         {
             SqlConnection conn = new SqlConnection(connectionString);
 
             using (conn)
             {
+                
                 StringBuilder sb = new StringBuilder();
+
+                SqlCommand cmd = new SqlCommand();
                 sb.Append("SELECT * FROM Film WHERE 1=1");
 
-                if (!string.IsNullOrEmpty(filtering.Title))
+                if (!string.IsNullOrWhiteSpace(filtering.Title))
                 {
                     sb.Append(" AND Title LIKE @Title");
+                    cmd.Parameters.AddWithValue("@Title", filtering.Title);
                 }
 
-                if (!string.IsNullOrEmpty(filtering.Genre))
+                if (!string.IsNullOrWhiteSpace(filtering.Genre))
                 {
                     sb.Append(" AND Genre LIKE @Genre");
+                    cmd.Parameters.AddWithValue("@Genre", filtering.Genre);
                 }
 
                 if (filtering.ReleaseMin != null && filtering.ReleaseMax != null)
                 {
                     sb.Append(" AND Release >= @ReleaseMin AND Release <= @ReleaseMax");
+                    cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
+                    cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
                 }
                 else if (filtering.ReleaseMin != null)
                 {
                     sb.Append(" AND Release >= @ReleaseMin");
+                    cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
                 }
                 else if (filtering.ReleaseMax != null)
                 {
                     sb.Append(" AND Release <= @ReleaseMax");
+                    cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
                 }
 
                 if (filtering.MinDuration != null && filtering.MaxDuration != null)
                 {
                     sb.Append(" AND Duration >= @MinDuration AND Duration <= @MaxDuration");
+                    cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
+                    cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
                 }
                 else if (filtering.MinDuration != null)
                 {
                     sb.Append(" AND Duration >= @MinDuration");
+                    cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
                 }
                 else if (filtering.MaxDuration != null)
                 {
                     sb.Append(" AND Duration <= @MaxDuration");
+                    cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
                 }
-                
-                SqlCommand cmd = new SqlCommand(sb.ToString(), conn);
-                
-                cmd.Parameters.AddWithValue("@Title", filtering.Title);
-                cmd.Parameters.AddWithValue("@Genre", filtering.Genre);
-                cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
-                cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
-                cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
-                cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
+                cmd.Connection = conn;
+                cmd.CommandText = sb.ToString();
 
                 ////////////////////////////////////////////////////////////////////////////
-                
+                conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 List<Film> filmList = new List<Film>();
@@ -99,6 +105,8 @@ namespace Kino.Repository
             }
         }
 
+
+/// /////////////////////////////////////////////////////////////////////////////////////////
 
 
         public async Task<List<Film>> GetAllAsync() // vracam listu pa zato

@@ -78,10 +78,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IService.cs" />
+    <Compile Include="IFilmService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kino.Common\Kino.Common.csproj">
+      <Project>{A8845A9D-26EC-4A70-9869-A9973510652D}</Project>
+      <Name>Kino.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kino.Model\Kino.Model.csproj">
       <Project>{B16C981D-CE8E-4BE2-9509-BD1A4A828C2C}</Project>
       <Name>Kino.Model</Name>

@@ -1,4 +1,5 @@
-﻿using Kino.Model;
+﻿using Kino.Common;
+using Kino.Model;
 using Kino.Repository;
 using Kino.Service.Common;
 using System;
@@ -11,6 +12,16 @@ namespace Kino.Service
 {
     public class FilmService : IFilmService
     {
+        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering)
+        {
+            FilmRepository repository = new FilmRepository();
+            List<Film> filmList = repository.GetPagingSortingFiltering(filtering);
+            return filmList;
+        }
+
+
+        /// ////////////////////////////////////////////////////////////////////
+
         public async Task<List<Film>> GetAllAsync()
         {
             FilmRepository repository = new FilmRepository();

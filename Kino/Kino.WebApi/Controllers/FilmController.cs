@@ -25,16 +25,16 @@ namespace Kino.WebApi
 
         [HttpGet]
         [Route("api/film/getbyPSF")]
-        public HttpResponseMessage GetPagingSortingFiltering(Paging paging, Sorting sorting, FilmFiltering filtering)
+        public HttpResponseMessage GetPagingSortingFiltering([FromUri]FilmFiltering filtering)
         {
             try
             {
-                List<Film> filmList = Service.GetPagingSortingFiltering(paging, sorting, filtering);
+                List<Film> filmList = Service.GetPagingSortingFiltering(filtering);
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing GetById: {ex.Message}");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing getbyPSF: {ex.Message}");
             }
         }
 
