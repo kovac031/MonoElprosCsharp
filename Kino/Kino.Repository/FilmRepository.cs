@@ -26,94 +26,102 @@ namespace Kino.Repository
                 StringBuilder sb = new StringBuilder();
 
                 SqlCommand cmd = new SqlCommand();
-                sb.Append("SELECT * FROM Film WHERE 1=1");
+                if (filtering != null)
+                {
 
-                if (!string.IsNullOrWhiteSpace(filtering.Title)) // exception ako nijedan parametar u postmanu nije selectan, kaze nesto ovdje null
-                {
-                    sb.Append(" AND Title LIKE @Title");
-                    cmd.Parameters.AddWithValue("@Title", filtering.Title);
-                }
+                    sb.Append("SELECT * FROM Film WHERE 1=1");
 
-                if (!string.IsNullOrWhiteSpace(filtering.Genre))
-                {
-                    sb.Append(" AND Genre LIKE @Genre");
-                    cmd.Parameters.AddWithValue("@Genre", filtering.Genre);
-                }
+                    if (!string.IsNullOrWhiteSpace(filtering.Title)) // exception ako nijedan parametar u postmanu nije selectan, kaze nesto ovdje null
+                    {
+                        sb.Append(" AND Title LIKE @Title");
+                        cmd.Parameters.AddWithValue("@Title", filtering.Title);
+                    }
 
-                if (filtering.ReleaseMin != null && filtering.ReleaseMax != null)
-                {
-                    sb.Append(" AND Release >= @ReleaseMin AND Release <= @ReleaseMax");
-                    cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
-                    cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
-                }
-                else if (filtering.ReleaseMin != null)
-                {
-                    sb.Append(" AND Release >= @ReleaseMin");
-                    cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
-                }
-                else if (filtering.ReleaseMax != null)
-                {
-                    sb.Append(" AND Release <= @ReleaseMax");
-                    cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
-                }
+                    if (!string.IsNullOrWhiteSpace(filtering.Genre))
+                    {
+                        sb.Append(" AND Genre LIKE @Genre");
+                        cmd.Parameters.AddWithValue("@Genre", filtering.Genre);
+                    }
 
-                if (filtering.MinDuration != null && filtering.MaxDuration != null)
-                {
-                    sb.Append(" AND Duration >= @MinDuration AND Duration <= @MaxDuration");
-                    cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
-                    cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
-                }
-                else if (filtering.MinDuration != null)
-                {
-                    sb.Append(" AND Duration >= @MinDuration");
-                    cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
-                }
-                else if (filtering.MaxDuration != null)
-                {
-                    sb.Append(" AND Duration <= @MaxDuration");
-                    cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
-                }
-                ////////////////////////////////////////////////////////////////////////
+                    if (filtering.ReleaseMin != null && filtering.ReleaseMax != null)
+                    {
+                        sb.Append(" AND Release >= @ReleaseMin AND Release <= @ReleaseMax");
+                        cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
+                        cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
+                    }
+                    else if (filtering.ReleaseMin != null)
+                    {
+                        sb.Append(" AND Release >= @ReleaseMin");
+                        cmd.Parameters.AddWithValue("@ReleaseMin", filtering.ReleaseMin);
+                    }
+                    else if (filtering.ReleaseMax != null)
+                    {
+                        sb.Append(" AND Release <= @ReleaseMax");
+                        cmd.Parameters.AddWithValue("@ReleaseMax", filtering.ReleaseMax);
+                    }
 
-                if (sorting.OrderBy != null && sorting.SortOrder != null)
-                {
-                    sb.Append($" ORDER BY {sorting.OrderBy} {sorting.SortOrder}");
-                    cmd.Parameters.AddWithValue("@OrderBy", sorting.OrderBy);
-                    cmd.Parameters.AddWithValue("@Direction", sorting.SortOrder);
-                }
-                else if (sorting.OrderBy != null)
-                {
-                    sb.Append(" ORDER BY @OrderBy ASC");
-                    cmd.Parameters.AddWithValue("@OrderBy", sorting.OrderBy);
-                }
-                else if (sorting.SortOrder != null)
-                {
-                    sb.Append(" ORDER BY Release @Direction");
-                    cmd.Parameters.AddWithValue("@Direction", sorting.SortOrder);
-                }
+                    if (filtering.MinDuration != null && filtering.MaxDuration != null)
+                    {
+                        sb.Append(" AND Duration >= @MinDuration AND Duration <= @MaxDuration");
+                        cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
+                        cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
+                    }
+                    else if (filtering.MinDuration != null)
+                    {
+                        sb.Append(" AND Duration >= @MinDuration");
+                        cmd.Parameters.AddWithValue("@MinDuration", filtering.MinDuration);
+                    }
+                    else if (filtering.MaxDuration != null)
+                    {
+                        sb.Append(" AND Duration <= @MaxDuration");
+                        cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
+                    }
+                    ////////////////////////////////////////////////////////////////////////
 
-                ////////////////////////////////////////////////////////////////////////
+                    if (sorting.OrderBy != null && sorting.SortOrder != null)
+                    {
+                        sb.Append($" ORDER BY {sorting.OrderBy} {sorting.SortOrder}");
+                        cmd.Parameters.AddWithValue("@OrderBy", sorting.OrderBy);
+                        cmd.Parameters.AddWithValue("@Direction", sorting.SortOrder);
+                    }
+                    else if (sorting.OrderBy != null)
+                    {
+                        sb.Append($" ORDER BY {sorting.OrderBy} ASC");
+                        cmd.Parameters.AddWithValue("@OrderBy", sorting.OrderBy);
+                    }
+                    else if (sorting.SortOrder != null)
+                    {
+                        sb.Append($" ORDER BY Release {sorting.SortOrder}");
+                        cmd.Parameters.AddWithValue("@Direction", sorting.SortOrder);
+                    }
 
-                if (paging.PageNumber != null && paging.PageRows != null)
-                {
-                    sb.Append($" OFFSET @Offset ROWS FETCH NEXT @PageRows ROWS ONLY;");
-                    int? pOffset = (0 + paging.PageNumber) * paging.PageRows; 
-                    cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
-                    cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
-                    cmd.Parameters.AddWithValue("@Offset", pOffset);
+                    ////////////////////////////////////////////////////////////////////////
+
+                    if (paging.PageNumber != null && paging.PageRows != null)
+                    {
+                        sb.Append(" OFFSET @Offset ROWS FETCH NEXT @PageRows ROWS ONLY;");
+                        int? pOffset = (0 + paging.PageNumber) * paging.PageRows;
+                        cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
+                        cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
+                        cmd.Parameters.AddWithValue("@Offset", pOffset);
+                    }
+                    else if (paging.PageNumber != null)
+                    {
+                        sb.Append(" OFFSET @Offset ROWS FETCH NEXT 5 ROWS ONLY;");
+                        int? pOffset = (0 + paging.PageNumber) * 5;
+                        cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
+                        cmd.Parameters.AddWithValue("@Offset", pOffset);
+                    }
+                    else if (paging.PageRows != null)
+                    {
+                        sb.Append(" OFFSET 0 ROWS FETCH NEXT @PageRows ROWS ONLY;");
+                        cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
+                    }
                 }
-                else if (paging.PageNumber != null)
+                else 
                 {
-                    sb.Append($" OFFSET @Offset ROWS FETCH NEXT 5 ROWS ONLY;");
-                    int? pOffset = (0 + paging.PageNumber) * 5;
-                    cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
-                    cmd.Parameters.AddWithValue("@Offset", pOffset);
-                }
-                else if (paging.PageRows != null)
-                {
-                    sb.Append($" OFFSET 0 ROWS FETCH NEXT @PageRows ROWS ONLY;");
-                    cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
-                }
+                    sb.Append("SELECT * FROM Film");
+                };
 
                 ///////////////////////////////////////////////////////////////////////
 
