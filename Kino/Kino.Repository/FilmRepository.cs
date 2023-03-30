@@ -75,10 +75,12 @@ namespace Kino.Repository
                 }
 
                 ////////////////////////////////////////////////////////////////////////
+                sb.Append(" ORDER BY Release");
 
                 if (paging.PageNumber != null && paging.PageRows != null)
                 {
-                    sb.Append(" OFFSET @Offset ROWS FETCH NEXT @PageRows ROWS ONLY;");
+                    //int? pOffset = (0 + paging.PageNumber) * paging.PageRows;
+                    sb.Append($" OFFSET @Offset ROWS FETCH NEXT @PageRows ROWS ONLY;");
                     int? pOffset = (0 + paging.PageNumber) * paging.PageRows; 
                     cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
                     cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
@@ -86,14 +88,15 @@ namespace Kino.Repository
                 }
                 else if (paging.PageNumber != null)
                 {
-                    sb.Append(" OFFSET @Offset ROWS FETCH NEXT 5 ROWS ONLY;");
+                    //int? pOffset = (0 + paging.PageNumber) * 5;
+                    sb.Append($" OFFSET @Offset ROWS FETCH NEXT 5 ROWS ONLY;");
                     int? pOffset = (0 + paging.PageNumber) * 5;
                     cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
                     cmd.Parameters.AddWithValue("@Offset", pOffset);
                 }
                 else if (paging.PageRows != null)
                 {
-                    sb.Append(" OFFSET 0 ROWS FETCH NEXT @PageRows ROWS ONLY;");
+                    sb.Append($" OFFSET 0 ROWS FETCH NEXT @PageRows ROWS ONLY;");
                     cmd.Parameters.AddWithValue("@PageRows", paging.PageRows);
                 }
 
