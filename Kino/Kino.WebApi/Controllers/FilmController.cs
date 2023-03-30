@@ -25,11 +25,11 @@ namespace Kino.WebApi
 
         [HttpGet]
         [Route("api/film/getbyPSF")]
-        public HttpResponseMessage GetPagingSortingFiltering([FromUri]FilmFiltering filtering, [FromUri]Paging paging)
+        public HttpResponseMessage GetPagingSortingFiltering([FromUri]FilmFiltering filtering, [FromUri]Paging paging, [FromUri]Sorting sorting)
         {
             try
             {
-                List<Film> filmList = Service.GetPagingSortingFiltering(filtering, paging);
+                List<Film> filmList = Service.GetPagingSortingFiltering(filtering, paging, sorting);
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)

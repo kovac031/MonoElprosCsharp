@@ -16,7 +16,7 @@ namespace Kino.Repository
     {
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
 
-        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging)
+        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging, Sorting sorting)
         {
             SqlConnection conn = new SqlConnection(connectionString);
 
@@ -73,13 +73,29 @@ namespace Kino.Repository
                     sb.Append(" AND Duration <= @MaxDuration");
                     cmd.Parameters.AddWithValue("@MaxDuration", filtering.MaxDuration);
                 }
+                ////////////////////////////////////////////////////////////////////////
+
+                if (sorting.OrderBy != null && sorting.SortOrder != null)
+                {
+                    sb.Append($" ORDER BY {sorting.OrderBy} {sorting.SortOrder}");
+                    cmd.Parameters.AddWithValue("@OrderBy", sorting.OrderBy);
+                    cmd.Parameters.AddWithValue("@Direction", sorting.SortOrder);
+                }
+                else if (sorting.OrderBy != null)
+                {
+                    sb.Append(" ORDER BY @OrderBy ASC");
+                    cmd.Parameters.AddWithValue("@OrderBy", sorting.OrderBy);
+                }
+                else if (sorting.SortOrder != null)
+                {
+                    sb.Append(" ORDER BY Release @Direction");
+                    cmd.Parameters.AddWithValue("@Direction", sorting.SortOrder);
+                }
 
                 ////////////////////////////////////////////////////////////////////////
-                sb.Append(" ORDER BY Release");
 
                 if (paging.PageNumber != null && paging.PageRows != null)
                 {
-                    //int? pOffset = (0 + paging.PageNumber) * paging.PageRows;
                     sb.Append($" OFFSET @Offset ROWS FETCH NEXT @PageRows ROWS ONLY;");
                     int? pOffset = (0 + paging.PageNumber) * paging.PageRows; 
                     cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
@@ -88,7 +104,6 @@ namespace Kino.Repository
                 }
                 else if (paging.PageNumber != null)
                 {
-                    //int? pOffset = (0 + paging.PageNumber) * 5;
                     sb.Append($" OFFSET @Offset ROWS FETCH NEXT 5 ROWS ONLY;");
                     int? pOffset = (0 + paging.PageNumber) * 5;
                     cmd.Parameters.AddWithValue("@PageNumber", paging.PageNumber);
@@ -101,7 +116,6 @@ namespace Kino.Repository
                 }
 
                 ///////////////////////////////////////////////////////////////////////
-
 
                 cmd.Connection = conn;
                 cmd.CommandText = sb.ToString();

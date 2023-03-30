@@ -12,10 +12,10 @@ namespace Kino.Service
 {
     public class FilmService : IFilmService
     {
-        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging)
+        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging, Sorting sorting)
         {
             FilmRepository repository = new FilmRepository();
-            List<Film> filmList = repository.GetPagingSortingFiltering(filtering, paging);
+            List<Film> filmList = repository.GetPagingSortingFiltering(filtering, paging, sorting);
             return filmList;
         }
 
