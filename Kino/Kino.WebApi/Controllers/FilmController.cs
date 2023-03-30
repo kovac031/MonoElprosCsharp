@@ -22,14 +22,41 @@ namespace Kino.WebApi
         {
             Service = service;
         }
+        
+        public IHttpActionResult GetAllStudentsEF()
+        {
+            IList<Film> films = null;
+
+            using (Film film = new Film())
+            {
+                films = film.Students.Include("StudentAddress")
+                            .Select(s => new newFilm()
+                            {
+                                Id = s.StudentID,
+                                FirstName = s.FirstName,
+                                LastName = s.LastName
+                            }).ToList<StudentViewModel>();
+            }
+
+            if (students.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(students);
+        }
+        
+
+        ////////////////////////////////////////////////////////////////////////////////
+
 
         [HttpGet]
         [Route("api/film/getbyPSF")]
-        public HttpResponseMessage GetPagingSortingFiltering([FromUri]FilmFiltering filtering, [FromUri]Paging paging)
+        public HttpResponseMessage GetPagingSortingFiltering([FromUri]FilmFiltering filtering, [FromUri]Paging paging, [FromUri]Sorting sorting)
         {
             try
             {
-                List<Film> filmList = Service.GetPagingSortingFiltering(filtering, paging);
+                List<Film> filmList = Service.GetPagingSortingFiltering(filtering, paging, sorting);
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)
@@ -37,10 +64,6 @@ namespace Kino.WebApi
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"Error occured while executing getbyPSF: {ex.Message}");
             }
         }
-
-
-
-
 
         ///////////////////////////////////////////////////////////////////////////
 

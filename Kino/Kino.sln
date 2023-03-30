@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kino.Model.Common", "Kino.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kino.Common", "Kino.Common\Kino.Common.csproj", "{A8845A9D-26EC-4A70-9869-A9973510652D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kino.DAL", "Kino.DAL\Kino.DAL.csproj", "{B9794F00-1BB3-4DD0-A210-12E0529A1243}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{A8845A9D-26EC-4A70-9869-A9973510652D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8845A9D-26EC-4A70-9869-A9973510652D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8845A9D-26EC-4A70-9869-A9973510652D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9794F00-1BB3-4DD0-A210-12E0529A1243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9794F00-1BB3-4DD0-A210-12E0529A1243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9794F00-1BB3-4DD0-A210-12E0529A1243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9794F00-1BB3-4DD0-A210-12E0529A1243}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
