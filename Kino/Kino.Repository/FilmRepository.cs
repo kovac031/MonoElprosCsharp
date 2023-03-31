@@ -31,7 +31,7 @@ namespace Kino.Repository
 
                     sb.Append("SELECT * FROM Film WHERE 1=1");
 
-                    if (!string.IsNullOrWhiteSpace(filtering.Title)) // exception ako nijedan parametar u postmanu nije selectan, kaze nesto ovdje null
+                    if (!string.IsNullOrWhiteSpace(filtering.Title)) 
                     {
                         sb.Append(" AND Title LIKE @Title");
                         cmd.Parameters.AddWithValue("@Title", filtering.Title);

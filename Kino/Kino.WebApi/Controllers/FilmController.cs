@@ -24,35 +24,6 @@ namespace Kino.WebApi
             Service = service;
         }
         
-        public IHttpActionResult GetAllEF()
-        {
-            
-
-
-            return (null);
-            /*
-            IList<Film> films = null;
-
-            using (Film film = new Film())
-            {
-                films = film.Students.Include("StudentAddress")
-                            .Select(s => new newFilm()
-                            {
-                                Id = s.StudentID,
-                                FirstName = s.FirstName,
-                                LastName = s.LastName
-                            }).ToList<StudentViewModel>();
-            }
-
-            if (students.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(students);*/
-        }
-        
-
         ////////////////////////////////////////////////////////////////////////////////
 
 
