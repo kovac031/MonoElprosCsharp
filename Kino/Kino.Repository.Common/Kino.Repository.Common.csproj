@@ -92,6 +92,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kino.DAL\Kino.DAL.csproj">
+      <Project>{B9794F00-1BB3-4DD0-A210-12E0529A1243}</Project>
+      <Name>Kino.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kino.Model\Kino.Model.csproj">
       <Project>{B16C981D-CE8E-4BE2-9509-BD1A4A828C2C}</Project>
       <Name>Kino.Model</Name>

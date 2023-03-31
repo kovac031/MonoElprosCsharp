@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kino.Model
 {
-    public class Film : IFilm
+    public class FilmDTO : IFilm
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

@@ -27,7 +27,7 @@ namespace Kino.WebApi.App_Start
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<FilmService>().As<IFilmService>();
-            builder.RegisterType<FilmRepository>().As<IFilmRepository>();
+            builder.RegisterType<EFFilmRepository>().As<IFilmRepository>();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
