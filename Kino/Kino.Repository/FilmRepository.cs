@@ -333,7 +333,7 @@ namespace Kino.Repository
         }
         
         
-        public async Task<List<FilmDTO>> DeleteAsync(string id)
+        public async Task<List<FilmDTO>> DeleteAsync(Guid id)
         {
             try
             {

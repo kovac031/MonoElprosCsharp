@@ -140,7 +140,7 @@ namespace Kino.WebApi
 
         [HttpDelete]
         [Route("api/film/del/{id}")]
-        public async Task<HttpResponseMessage> DeleteAsync(string id)
+        public async Task<HttpResponseMessage> DeleteAsync(Guid id)
         {
             //FilmService service = new FilmService();
 

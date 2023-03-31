@@ -14,7 +14,7 @@ namespace Kino.Repository.Common
         Task<FilmDTO> GetByIdAsync(Guid id);
         Task<FilmDTO> PostAsync(FilmDTO film);
         Task<FilmDTO> PutAsync(string id, FilmDTO film);
-        Task<List<FilmDTO>> DeleteAsync(string id);
+        Task<List<FilmDTO>> DeleteAsync(Guid id);
 
         
 

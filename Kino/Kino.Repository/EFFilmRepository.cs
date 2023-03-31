@@ -68,16 +68,67 @@ namespace Kino.Repository
 
             kino.SaveChanges();
             return film;
-            //throw new NotImplementedException();
+            
         }
 
-        public Task<FilmDTO> PutAsync(string id, FilmDTO film)
+        public async Task<FilmDTO> PutAsync(string id, FilmDTO film)
         {
-            throw new NotImplementedException();
+            SmallCinemaContext kino = new SmallCinemaContext();
+            FilmDTO postojeciFilm;
+
+            Guid guidId = Guid.Parse(id);
+
+            postojeciFilm = await kino.Films.Where(f => f.Id == guidId).Select(f => new FilmDTO
+            {
+                Id = guidId,
+                Title = f.Title,
+                Release = f.Release,
+                Genre = f.Genre,
+                Duration = f.Duration
+
+            }).FirstOrDefaultAsync();
+
+            //if (postojeciFilm != null)
+            //{
+            //    postojeciFilm.Id = film.Id;
+            //    postojeciFilm.Title = film.Title;
+            //    postojeciFilm.Release = film.Release;
+            //    postojeciFilm.Genre = film.Genre;
+            //    postojeciFilm.Duration = film.Duration;
+
+            //    kino.SaveChanges();
+            //}
+            //else
+            //{
+            //    return (null);
+            //}
+
+            return postojeciFilm; // id budu nule neznam zasto
         }
-        public Task<List<FilmDTO>> DeleteAsync(string id)
+        public async Task<List<FilmDTO>> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            SmallCinemaContext kino = new SmallCinemaContext();
+            FilmDTO tajFilm;
+            List<FilmDTO> filmDTOs;
+            //Guid guidId = Guid.Parse(id);
+
+            tajFilm = await kino.Films.Where(f => f.Id == id).FirstOrDefaultAsync<FilmDTO>();
+
+            kino.Entry(tajFilm).State = EntityState.Deleted;
+            kino.SaveChanges();
+
+            filmDTOs = await kino.Films.Select(film => new FilmDTO()
+            {
+                Id = film.Id,
+                Title = film.Title,
+                Release = film.Release,
+                Genre = film.Genre,
+                Duration = film.Duration
+            }).ToListAsync<FilmDTO>();
+
+            return filmDTOs;
+
+            //throw new NotImplementedException();
         }
 
     }

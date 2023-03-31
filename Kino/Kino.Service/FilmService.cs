@@ -50,7 +50,7 @@ namespace Kino.Service
             return filmService;
         }
         
-        public async Task<List<FilmDTO>> DeleteAsync(string id)
+        public async Task<List<FilmDTO>> DeleteAsync(Guid id)
         {
             FilmRepository repository = new FilmRepository();
             List<FilmDTO> filmService = await repository.DeleteAsync(id);
