@@ -1,4 +1,5 @@
 ﻿using Kino.Common;
+
 using Kino.Model;
 using Kino.Service;
 using Kino.Service.Common;
@@ -23,30 +24,6 @@ namespace Kino.WebApi
             Service = service;
         }
         
-        public IHttpActionResult GetAllStudentsEF()
-        {
-            IList<Film> films = null;
-
-            using (Film film = new Film())
-            {
-                films = film.Students.Include("StudentAddress")
-                            .Select(s => new newFilm()
-                            {
-                                Id = s.StudentID,
-                                FirstName = s.FirstName,
-                                LastName = s.LastName
-                            }).ToList<StudentViewModel>();
-            }
-
-            if (students.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(students);
-        }
-        
-
         ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -56,7 +33,7 @@ namespace Kino.WebApi
         {
             try
             {
-                List<Film> filmList = Service.GetPagingSortingFiltering(filtering, paging, sorting);
+                List<FilmDTO> filmList = Service.GetPagingSortingFiltering(filtering, paging, sorting);
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)
@@ -75,9 +52,9 @@ namespace Kino.WebApi
 
             try
             {
-                List<Film> filmList = await Service.GetAllAsync();
+                List<FilmDTO> filmList = await Service.GetAllAsync();
                 List<FilmRest> restFilms = new List<FilmRest>();
-                foreach (Film film in filmList)
+                foreach (FilmDTO film in filmList)
                 {
                     FilmRest restFilm = new FilmRest();
                     restFilm.Title = film.Title;
@@ -101,7 +78,7 @@ namespace Kino.WebApi
                         
             try
             {
-                List<Film> filmList = await Service.GetAllAsync();
+                List<FilmDTO> filmList = await Service.GetAllAsync();
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)
@@ -118,7 +95,7 @@ namespace Kino.WebApi
 
             try
             {
-                Film film = await Service.GetByIdAsync(id);
+                FilmDTO film = await Service.GetByIdAsync(id);
                 return Request.CreateResponse(HttpStatusCode.OK, film);
             }
             catch (Exception ex)
@@ -129,13 +106,13 @@ namespace Kino.WebApi
         
         [HttpPost]
         [Route("api/film/post")]
-        public async Task<HttpResponseMessage> PostAsync(Film filmService)
+        public async Task<HttpResponseMessage> PostAsync(FilmDTO filmService)
         {
             //FilmService service = new FilmService();
 
             try
             {
-                Film film = await Service.PostAsync(filmService);
+                FilmDTO film = await Service.PostAsync(filmService);
                 return Request.CreateResponse(HttpStatusCode.OK, film);
             }
             catch (Exception ex)
@@ -146,13 +123,13 @@ namespace Kino.WebApi
 
         [HttpPut]
         [Route("api/film/put/{id}")]
-        public async Task<HttpResponseMessage> PutAsync(string id, Film filmService)
+        public async Task<HttpResponseMessage> PutAsync(string id, FilmDTO filmService)
         {
             //FilmService service = new FilmService();
 
             try
             {
-                Film film = await Service.PutAsync(id, filmService);
+                FilmDTO film = await Service.PutAsync(id, filmService);
                 return Request.CreateResponse(HttpStatusCode.OK, film);
             }
             catch (Exception ex)
@@ -163,13 +140,13 @@ namespace Kino.WebApi
 
         [HttpDelete]
         [Route("api/film/del/{id}")]
-        public async Task<HttpResponseMessage> DeleteAsync(string id)
+        public async Task<HttpResponseMessage> DeleteAsync(Guid id)
         {
             //FilmService service = new FilmService();
 
             try
             {
-                List<Film> filmList = await Service.DeleteAsync(id);
+                List<FilmDTO> filmList = await Service.DeleteAsync(id);
                 return Request.CreateResponse(HttpStatusCode.OK, filmList);
             }
             catch (Exception ex)

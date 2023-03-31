@@ -1,4 +1,5 @@
-﻿using Kino.Model;
+﻿using Kino.DAL;
+using Kino.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace Kino.Repository.Common
 {
     public interface IFilmRepository
     {
-        Task<List<Film>> GetAllAsync();
-        Task<Film> GetByIdAsync(Guid id);
-        Task<Film> PostAsync(Film film);
-        Task<Film> PutAsync(string id, Film film);
-        Task<List<Film>> DeleteAsync(string id);
+        Task<List<FilmDTO>> GetAllAsync();
+        Task<FilmDTO> GetByIdAsync(Guid id);
+        Task<FilmDTO> PostAsync(FilmDTO film);
+        Task<FilmDTO> PutAsync(string id, FilmDTO film);
+        Task<List<FilmDTO>> DeleteAsync(Guid id);
+
+        
 
     }
 }

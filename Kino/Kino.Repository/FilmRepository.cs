@@ -16,7 +16,7 @@ namespace Kino.Repository
     {
         public static string connectionString = "Data Source=VREMENSKISTROJ;Initial Catalog=SmallCinema;Integrated Security=True";
 
-        public List<Film> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging, Sorting sorting)
+        public List<FilmDTO> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging, Sorting sorting)
         {
             SqlConnection conn = new SqlConnection(connectionString);
 
@@ -31,7 +31,7 @@ namespace Kino.Repository
 
                     sb.Append("SELECT * FROM Film WHERE 1=1");
 
-                    if (!string.IsNullOrWhiteSpace(filtering.Title)) // exception ako nijedan parametar u postmanu nije selectan, kaze nesto ovdje null
+                    if (!string.IsNullOrWhiteSpace(filtering.Title)) 
                     {
                         sb.Append(" AND Title LIKE @Title");
                         cmd.Parameters.AddWithValue("@Title", filtering.Title);
@@ -132,12 +132,12 @@ namespace Kino.Repository
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                List<Film> filmList = new List<Film>();
+                List<FilmDTO> filmList = new List<FilmDTO>();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        Film film = new Film();
+                        FilmDTO film = new FilmDTO();
 
                         film.Id = reader.GetGuid(0);
                         film.Title = reader.GetString(1);
@@ -161,7 +161,7 @@ namespace Kino.Repository
 /// /////////////////////////////////////////////////////////////////////////////////////////
 
 
-        public async Task<List<Film>> GetAllAsync() // vracam listu pa zato
+        public async Task<List<FilmDTO>> GetAllAsync() // vracam listu pa zato
         {
             try
             {
@@ -176,12 +176,12 @@ namespace Kino.Repository
                     
                     //Kino.Model.Film film = new Kino.Model.Film(); // ne treba, vidi ga
 
-                    List<Film> filmList = new List<Film>();
+                    List<FilmDTO> filmList = new List<FilmDTO>();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            Film film = new Film();
+                            FilmDTO film = new FilmDTO();
 
                             film.Id = reader.GetGuid(0);
                             film.Title = reader.GetString(1);
@@ -206,7 +206,7 @@ namespace Kino.Repository
             }
         }
         
-        public async Task<Film> GetByIdAsync(Guid id)
+        public async Task<FilmDTO> GetByIdAsync(Guid id)
         {
             try
             {
@@ -222,7 +222,7 @@ namespace Kino.Repository
 
                     if (reader.HasRows)
                     {
-                        Film film = new Film(); //stavio tu jer return film mora ici iza while a unutar if petlje, inace javlja not all paths return value
+                        FilmDTO film = new FilmDTO(); //stavio tu jer return film mora ici iza while a unutar if petlje, inace javlja not all paths return value
 
                         while (reader.Read())
                         {
@@ -251,7 +251,7 @@ namespace Kino.Repository
         }
         
         
-        public async Task<Film> PostAsync(Film film)
+        public async Task<FilmDTO> PostAsync(FilmDTO film)
         {
             try
             {
@@ -285,7 +285,7 @@ namespace Kino.Repository
         }
         
         
-        public async Task<Film> PutAsync(string id, Film film)
+        public async Task<FilmDTO> PutAsync(string id, FilmDTO film)
         {
             try
             {
@@ -333,7 +333,7 @@ namespace Kino.Repository
         }
         
         
-        public async Task<List<Film>> DeleteAsync(string id)
+        public async Task<List<FilmDTO>> DeleteAsync(Guid id)
         {
             try
             {
@@ -358,7 +358,7 @@ namespace Kino.Repository
                         if (cmdU.ExecuteNonQuery() > 0)
                         {
 
-                            List<Film> filmList = await GetAllAsync(); // jer je async mora ici await
+                            List<FilmDTO> filmList = await GetAllAsync(); // jer je async mora ici await
                             // List<Film> filmList = new List<Film>();
                             //Film film = new Film();
                             
