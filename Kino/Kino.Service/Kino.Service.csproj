@@ -100,6 +100,10 @@
       <Project>{b16c981d-ce8e-4be2-9509-bd1a4a828c2c}</Project>
       <Name>Kino.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Kino.Repository.Common\Kino.Repository.Common.csproj">
+      <Project>{DA8CF2DA-42DD-4528-99F8-283A7D06AF29}</Project>
+      <Name>Kino.Repository.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kino.Repository\Kino.Repository.csproj">
       <Project>{40b575d6-c7c2-4d6b-bb30-c1262958ab0f}</Project>
       <Name>Kino.Repository</Name>

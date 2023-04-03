@@ -11,6 +11,7 @@ using Autofac.Core;
 using Kino.Repository.Common;
 using Kino.Service;
 using Kino.Repository;
+using Kino.DAL;
 
 namespace Kino.WebApi.App_Start
 {
@@ -28,6 +29,7 @@ namespace Kino.WebApi.App_Start
 
             builder.RegisterType<FilmService>().As<IFilmService>();
             builder.RegisterType<EFFilmRepository>().As<IFilmRepository>();
+            builder.RegisterType<SmallCinemaContext>().AsSelf();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
