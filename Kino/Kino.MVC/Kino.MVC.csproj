@@ -165,10 +165,12 @@
     <Compile Include="App_Start\DIConfigMVC.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FilmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FilmView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,10 +224,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Film\GetAllAsync.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -253,6 +255,40 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kino.Common\Kino.Common.csproj">
+      <Project>{a8845a9d-26ec-4a70-9869-a9973510652d}</Project>
+      <Name>Kino.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.DAL\Kino.DAL.csproj">
+      <Project>{b9794f00-1bb3-4dd0-a210-12e0529a1243}</Project>
+      <Name>Kino.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Model.Common\Kino.Model.Common.csproj">
+      <Project>{586cd367-35ce-40f8-b22f-7cb3cf780245}</Project>
+      <Name>Kino.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Model\Kino.Model.csproj">
+      <Project>{B16C981D-CE8E-4BE2-9509-BD1A4A828C2C}</Project>
+      <Name>Kino.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Repository.Common\Kino.Repository.Common.csproj">
+      <Project>{DA8CF2DA-42DD-4528-99F8-283A7D06AF29}</Project>
+      <Name>Kino.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Repository\Kino.Repository.csproj">
+      <Project>{40B575D6-C7C2-4D6B-BB30-C1262958AB0F}</Project>
+      <Name>Kino.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Service.Common\Kino.Service.Common.csproj">
+      <Project>{9E7B0855-B840-4A6A-978D-AE06008321CA}</Project>
+      <Name>Kino.Service.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kino.Service\Kino.Service.csproj">
+      <Project>{441364F6-4C6D-4ECD-965B-B064F0A1B902}</Project>
+      <Name>Kino.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
