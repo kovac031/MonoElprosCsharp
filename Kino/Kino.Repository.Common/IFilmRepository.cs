@@ -1,4 +1,5 @@
-﻿using Kino.DAL;
+﻿using Kino.Common;
+using Kino.DAL;
 using Kino.Model;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Kino.Repository.Common
         Task<FilmDTO> PutAsync(string id, FilmDTO film);
         Task<List<FilmDTO>> DeleteAsync(Guid id);
 
-        
+        List<FilmDTO> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging, Sorting sorting);
 
     }
 }

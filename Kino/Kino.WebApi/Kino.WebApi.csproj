@@ -345,6 +345,10 @@
       <Project>{A8845A9D-26EC-4A70-9869-A9973510652D}</Project>
       <Name>Kino.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Kino.DAL\Kino.DAL.csproj">
+      <Project>{B9794F00-1BB3-4DD0-A210-12E0529A1243}</Project>
+      <Name>Kino.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kino.Model.Common\Kino.Model.Common.csproj">
       <Project>{586CD367-35CE-40F8-B22F-7CB3CF780245}</Project>
       <Name>Kino.Model.Common</Name>
