@@ -112,7 +112,7 @@ namespace Kino.Repository
             List<FilmDTO> filmDTOs;
             //Guid guidId = Guid.Parse(id);
 
-            tajFilm = await kino.Films.Where(f => f.Id == id).FirstOrDefaultAsync<FilmDTO>();
+            tajFilm = await kino.Films.Where(f => f.Id == id).Select(f => new FilmDTO()).FirstOrDefaultAsync<FilmDTO>();
 
             kino.Entry(tajFilm).State = EntityState.Deleted;
             kino.SaveChanges();
