@@ -82,25 +82,26 @@ namespace Kino.Repository
             
             Guid guidId = Guid.Parse(id);
 
-            FilmDTO postojeciFilm = await GetByIdAsync(guidId);
+            Film existingFilm = await Context.Films.Where(f => f.Id == guidId).FirstOrDefaultAsync();
 
-            if (postojeciFilm != null)
+            if (existingFilm != null)
             {
-                Film updatedFilm = await Context.Films.Where(f => f.Id == film.Id).FirstOrDefaultAsync();
-                updatedFilm.Id = film.Id;
-                updatedFilm.Title = film.Title;
-                updatedFilm.Release = film.Release;
-                updatedFilm.Genre = film.Genre;
-                updatedFilm.Duration = film.Duration;
+
+                //existingFilm.Id = film.Id;
+                existingFilm.Title = film.Title;
+                existingFilm.Release = film.Release;
+                existingFilm.Genre = film.Genre;
+                existingFilm.Duration = film.Duration;
 
                 Context.SaveChanges();
+                
             }
             else
             {
                 return (null);
             }
 
-            return postojeciFilm; 
+            return film; // radi ali za id vraca nule u prikazu iako dobro spremi u bazu
         }
         public async Task<List<FilmDTO>> DeleteAsync(Guid id)
         {
