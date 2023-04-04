@@ -137,6 +137,20 @@ namespace Kino.MVC.Controllers
 
         }
 
+        //-/////////////////////////////////////////////////////////////////////
+
+        [HttpPost]
+        public async Task<ActionResult> Create(FilmDTO filmDTO)
+        {
+            
+            
+
+            await Service.PostAsync(filmDTO);
+
+            return View(); 
+        }
+
+
 
         /////////////////////////////////////////////////////////////////////////
 
