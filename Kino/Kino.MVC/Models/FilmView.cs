@@ -9,5 +9,6 @@ namespace Kino.MVC.Models
     {
         public string Title { get; set; }
         public int Release { get; set; }
+        public Guid Id { get; set; }
     }
 }
