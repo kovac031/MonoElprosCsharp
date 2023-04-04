@@ -132,5 +132,5 @@ namespace Kino.Repository
             return (null);
         }
 
-        }
+    }
 }

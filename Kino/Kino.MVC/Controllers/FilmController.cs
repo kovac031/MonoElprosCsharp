@@ -3,6 +3,7 @@ using Kino.MVC.Models;
 using Kino.Service.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -34,6 +35,25 @@ namespace Kino.MVC.Controllers
                 viewFilms.Add(viewFilm);
             }
             return View(viewFilms);
+        }
+
+        // api/film/getbyidasync/{id}
+        public async Task<ActionResult> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                FilmDTO film = await Service.GetByIdAsync(id);
+                FilmView viewFilm = new FilmView();
+                viewFilm.Title = film.Title;
+                viewFilm.Release = film.Release;
+
+                return View(viewFilm);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error: {ex.Message}");
+                return null;
+            }
         }
 
         
