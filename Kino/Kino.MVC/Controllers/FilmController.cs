@@ -106,11 +106,40 @@ namespace Kino.MVC.Controllers
 
         }
 
+        //-////////////////////////////////////////////////////////////////
+
+        public async Task<ActionResult> Delete(Guid id)
+        {
+
+            FilmDTO film = await Service.GetByIdAsync(id);
+            FilmView viewFilm = new FilmView();
+            viewFilm.Id = film.Id;
+            viewFilm.Title = film.Title;
+            viewFilm.Release = film.Release;
+            //List<FilmDTO> filmList = await Service.GetAllAsync();
+            //Guid guidId = Guid.Parse(id);
+            //FilmDTO film = filmList.Where(f => f.Id == guidId).FirstOrDefault();
+
+            return View(viewFilm);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Delete(FilmView film)
+        {
+            FilmDTO filmDTO = new FilmDTO();
+
+            filmDTO.Id = film.Id;
+            filmDTO.Title = film.Title;
+            filmDTO.Release = film.Release;
+
+            await Service.DeleteAsync(filmDTO.Id);
+
+            return View();
+
+        }
 
 
-        
         /////////////////////////////////////////////////////////////////////////
-        
+
         /*
 
         // GET: Film/Details/5
