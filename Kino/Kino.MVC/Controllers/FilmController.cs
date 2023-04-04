@@ -92,6 +92,22 @@ namespace Kino.MVC.Controllers
 
         }
 
+        //-////////////////////////////////////////////////////////////////////////
+
+        public async Task<ActionResult> Details(Guid id)
+        {
+            FilmDTO film = await Service.GetByIdAsync(id);
+            FilmView viewFilm = new FilmView();
+            viewFilm.Id = film.Id;
+            viewFilm.Title = film.Title;
+            viewFilm.Release = film.Release;
+
+            return View(viewFilm);
+
+        }
+
+
+
         
         /////////////////////////////////////////////////////////////////////////
         
