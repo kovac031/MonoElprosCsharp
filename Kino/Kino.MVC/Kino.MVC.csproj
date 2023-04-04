@@ -226,6 +226,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Film\GetAllAsync.cshtml" />
     <Content Include="Views\Film\GetByIdAsync.cshtml" />
+    <Content Include="Views\Film\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

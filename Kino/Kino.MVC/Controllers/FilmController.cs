@@ -1,4 +1,5 @@
-﻿using Kino.Model;
+﻿using Kino.DAL;
+using Kino.Model;
 using Kino.MVC.Models;
 using Kino.Service.Common;
 using System;
@@ -29,6 +30,7 @@ namespace Kino.MVC.Controllers
             foreach (FilmDTO film in filmList)
             {
                 FilmView viewFilm = new FilmView();
+                viewFilm.Id = film.Id;
                 viewFilm.Title = film.Title;
                 viewFilm.Release = film.Release;
 
@@ -37,6 +39,8 @@ namespace Kino.MVC.Controllers
             return View(viewFilms);
         }
 
+        //-///////////////////////////////////////////////////////////////////////////
+
         // api/film/getbyidasync/{id}
         public async Task<ActionResult> GetByIdAsync(Guid id)
         {
@@ -44,6 +48,7 @@ namespace Kino.MVC.Controllers
             {
                 FilmDTO film = await Service.GetByIdAsync(id);
                 FilmView viewFilm = new FilmView();
+                viewFilm.Id = film.Id;
                 viewFilm.Title = film.Title;
                 viewFilm.Release = film.Release;
 
@@ -56,9 +61,41 @@ namespace Kino.MVC.Controllers
             }
         }
 
+        //-////////////////////////////////////////////////////////////////
+
+        public async Task<ActionResult> Edit(Guid id)
+        {
+
+            FilmDTO film = await Service.GetByIdAsync(id);
+            FilmView viewFilm = new FilmView();
+            viewFilm.Id = film.Id;
+            viewFilm.Title = film.Title;
+            viewFilm.Release = film.Release;
+            //List<FilmDTO> filmList = await Service.GetAllAsync();
+            //Guid guidId = Guid.Parse(id);
+            //FilmDTO film = filmList.Where(f => f.Id == guidId).FirstOrDefault();
+
+            return View(viewFilm);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit(FilmView film)
+        {
+            FilmDTO filmDTO = new FilmDTO();
+            
+            filmDTO.Id = film.Id;
+            filmDTO.Title = film.Title;
+            filmDTO.Release = film.Release;
+            
+            await Service.PutAsync(filmDTO.Id.ToString(), filmDTO);
+
+            return View();
+
+        }
+
         
         /////////////////////////////////////////////////////////////////////////
         
+        /*
 
         // GET: Film/Details/5
         public ActionResult Details(int id)
@@ -131,5 +168,7 @@ namespace Kino.MVC.Controllers
                 return View();
             }
         }
+
+        */
     }
 }
