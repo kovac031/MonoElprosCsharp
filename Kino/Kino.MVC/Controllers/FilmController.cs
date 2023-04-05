@@ -1,4 +1,5 @@
-﻿using Kino.DAL;
+﻿using Kino.Common;
+using Kino.DAL;
 using Kino.Model;
 using Kino.MVC.Models;
 using Kino.Service.Common;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http.Filters;
 using System.Web.Mvc;
 
 namespace Kino.MVC.Controllers
@@ -33,6 +35,8 @@ namespace Kino.MVC.Controllers
                 viewFilm.Id = film.Id;
                 viewFilm.Title = film.Title;
                 viewFilm.Release = film.Release;
+                viewFilm.Genre = film.Genre;
+                viewFilm.Duration = film.Duration;
 
                 viewFilms.Add(viewFilm);
             }
@@ -51,6 +55,8 @@ namespace Kino.MVC.Controllers
                 viewFilm.Id = film.Id;
                 viewFilm.Title = film.Title;
                 viewFilm.Release = film.Release;
+                viewFilm.Genre = film.Genre;
+                viewFilm.Duration = film.Duration;
 
                 return View(viewFilm);
             }
@@ -71,6 +77,8 @@ namespace Kino.MVC.Controllers
             viewFilm.Id = film.Id;
             viewFilm.Title = film.Title;
             viewFilm.Release = film.Release;
+            viewFilm.Genre = film.Genre;
+            viewFilm.Duration = film.Duration;
             //List<FilmDTO> filmList = await Service.GetAllAsync();
             //Guid guidId = Guid.Parse(id);
             //FilmDTO film = filmList.Where(f => f.Id == guidId).FirstOrDefault();
@@ -85,6 +93,8 @@ namespace Kino.MVC.Controllers
             filmDTO.Id = film.Id;
             filmDTO.Title = film.Title;
             filmDTO.Release = film.Release;
+            filmDTO.Genre = film.Genre; 
+            filmDTO.Duration = film.Duration;
             
             await Service.PutAsync(filmDTO.Id.ToString(), filmDTO);
 
@@ -101,6 +111,8 @@ namespace Kino.MVC.Controllers
             viewFilm.Id = film.Id;
             viewFilm.Title = film.Title;
             viewFilm.Release = film.Release;
+            viewFilm.Genre = film.Genre;
+            viewFilm.Duration = film.Duration;
 
             return View(viewFilm);
 
@@ -116,6 +128,8 @@ namespace Kino.MVC.Controllers
             viewFilm.Id = film.Id;
             viewFilm.Title = film.Title;
             viewFilm.Release = film.Release;
+            viewFilm.Genre = film.Genre;
+            viewFilm.Duration = film.Duration;
             //List<FilmDTO> filmList = await Service.GetAllAsync();
             //Guid guidId = Guid.Parse(id);
             //FilmDTO film = filmList.Where(f => f.Id == guidId).FirstOrDefault();
@@ -130,6 +144,8 @@ namespace Kino.MVC.Controllers
             filmDTO.Id = film.Id;
             filmDTO.Title = film.Title;
             filmDTO.Release = film.Release;
+            filmDTO.Genre = film.Genre;
+            filmDTO.Duration = film.Duration;
 
             await Service.DeleteAsync(filmDTO.Id);
 
@@ -139,95 +155,60 @@ namespace Kino.MVC.Controllers
 
         //-/////////////////////////////////////////////////////////////////////
 
-        [HttpPost]
-        public async Task<ActionResult> Create(FilmDTO filmDTO)
+        [HttpGet]
+        public async Task<ActionResult> Create(/*FilmDTO filmDTO*/)
         {
-            
-            
-
-            await Service.PostAsync(filmDTO);
+            //await Service.PostAsync(filmDTO);
 
             return View(); 
         }
+        [HttpPost]
+        public async Task<ActionResult> Create(FilmView film)
+        {
+            FilmDTO filmDTO = new FilmDTO();
 
+            filmDTO.Id = film.Id;
+            filmDTO.Title = film.Title;
+            filmDTO.Release = film.Release;
+            filmDTO.Genre = film.Genre;
+            filmDTO.Duration = film.Duration;
 
+            await Service.PostAsync(filmDTO);
+
+            return View();
+
+        }
 
         /////////////////////////////////////////////////////////////////////////
 
-        /*
-
-        // GET: Film/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> GetPSFAsync(FilmFiltering filtering, Paging paging, string sorting1)
         {
-            return View();
-        }
-
-        // GET: Film/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Film/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            if (sorting1 == null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                sorting1 = 
             }
-            catch
+            ViewBag.TitleSort = String.IsNullOrEmpty(sorting1.ToString()) ? "title_desc" : "";
+            ViewBag.YearSort = sorting1 == "Year" ? "year_desc" : "Year";
+            //List<FilmDTO> filmDTOs = from s in Context.Films
+            //                         select s;
+
+            Sorting sorting = new Sorting();
+            sorting.SortOrder = sorting1;
+
+            List<FilmDTO> filmList = Service.GetPagingSortingFiltering(filtering, paging, sorting); 
+            List<FilmView> viewFilms = new List<FilmView>();
+            foreach (FilmDTO film in filmList)
             {
-                return View();
+                FilmView viewFilm = new FilmView();
+                viewFilm.Id = film.Id;
+                viewFilm.Title = film.Title;
+                viewFilm.Release = film.Release;
+                viewFilm.Genre = film.Genre;
+                viewFilm.Duration = film.Duration;
+
+                viewFilms.Add(viewFilm);
             }
+            return View(viewFilms);
         }
-
-        // GET: Film/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Film/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Film/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Film/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        */
     }
 }
