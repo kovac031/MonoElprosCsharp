@@ -181,9 +181,21 @@ namespace Kino.MVC.Controllers
 
         /////////////////////////////////////////////////////////////////////////
 
-        public async Task<ActionResult> GetPSFAsync(/*FilmFiltering filtering, Paging paging, */Sorting sorting)
+        public async Task<ActionResult> GetPSFAsync(FilmFiltering filtering, Paging paging, string sorting1)
         {
-            List<FilmDTO> filmList = Service.GetPagingSortingFiltering(/*filtering, paging, */sorting); 
+            if (sorting1 == null)
+            {
+                sorting1 = 
+            }
+            ViewBag.TitleSort = String.IsNullOrEmpty(sorting1.ToString()) ? "title_desc" : "";
+            ViewBag.YearSort = sorting1 == "Year" ? "year_desc" : "Year";
+            //List<FilmDTO> filmDTOs = from s in Context.Films
+            //                         select s;
+
+            Sorting sorting = new Sorting();
+            sorting.SortOrder = sorting1;
+
+            List<FilmDTO> filmList = Service.GetPagingSortingFiltering(filtering, paging, sorting); 
             List<FilmView> viewFilms = new List<FilmView>();
             foreach (FilmDTO film in filmList)
             {

@@ -5,7 +5,9 @@ using Kino.Repository.Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -129,7 +131,37 @@ namespace Kino.Repository
 
         public List<FilmDTO> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging, Sorting sorting)
         {
+            //List<FilmDTO> filmDTOs;
+
             IQueryable<Film> query = Context.Films.AsQueryable();
+
+            List<FilmDTO> filmDTOs = Context.Films.Select(film => new FilmDTO()
+            {
+                Id = film.Id,
+                Title = film.Title,
+                Release = film.Release,
+                Genre = film.Genre,
+                Duration = film.Duration
+            }).ToList<FilmDTO>();
+
+            switch (sorting.SortOrder)
+            {
+                case "title_desc":
+                    query = query.OrderByDescending(s => s.Title);
+                    break;
+                case "Year":
+                    query = query.OrderBy(s => s.Release);
+                    break;
+                case "year_desc":
+                    query = query.OrderByDescending(s => s.Release);
+                    break;
+                default:
+                    query = query.OrderBy(s => s.Title);
+                    break;
+            }
+
+
+            /*IQueryable<Film> query = Context.Films.AsQueryable();
 
             List<FilmDTO> filmDTOs = Context.Films.Select(film => new FilmDTO()
             {
@@ -143,12 +175,12 @@ namespace Kino.Repository
             switch (sorting.OrderBy)
             {
                 case "Title":
-                    if (sorting.SortOrderAsc) query = query.OrderBy(ord => ord.Title);
+                    if (sorting.SortOrderBool) query = query.OrderBy(ord => ord.Title);
                     else query = query.OrderByDescending(ord => ord.Title);
-                    break;
-            }
+                    break; 
+            }*/
 
-            return (null);
+            return (filmDTOs);
         }
 
     }

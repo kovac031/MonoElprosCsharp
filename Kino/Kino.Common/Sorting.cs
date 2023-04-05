@@ -10,5 +10,6 @@ namespace Kino.Common
     {
         public string OrderBy { get; set; }
         public string SortOrder { get; set; }
+        public bool SortOrderBool { get; set; }
     }
 }
