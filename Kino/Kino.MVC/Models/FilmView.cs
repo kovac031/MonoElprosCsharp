@@ -7,8 +7,10 @@ namespace Kino.MVC.Models
 {
     public class FilmView
     {
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public int Release { get; set; }
-        public Guid Id { get; set; }
+        public string Genre { get; set; }
+        public int Duration { get; set; }
     }
 }

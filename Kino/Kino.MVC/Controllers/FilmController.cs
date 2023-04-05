@@ -33,6 +33,8 @@ namespace Kino.MVC.Controllers
                 viewFilm.Id = film.Id;
                 viewFilm.Title = film.Title;
                 viewFilm.Release = film.Release;
+                viewFilm.Genre = film.Genre;
+                viewFilm.Duration = film.Duration;
 
                 viewFilms.Add(viewFilm);
             }
@@ -51,6 +53,8 @@ namespace Kino.MVC.Controllers
                 viewFilm.Id = film.Id;
                 viewFilm.Title = film.Title;
                 viewFilm.Release = film.Release;
+                viewFilm.Genre = film.Genre;
+                viewFilm.Duration = film.Duration;
 
                 return View(viewFilm);
             }
@@ -71,6 +75,8 @@ namespace Kino.MVC.Controllers
             viewFilm.Id = film.Id;
             viewFilm.Title = film.Title;
             viewFilm.Release = film.Release;
+            viewFilm.Genre = film.Genre;
+            viewFilm.Duration = film.Duration;
             //List<FilmDTO> filmList = await Service.GetAllAsync();
             //Guid guidId = Guid.Parse(id);
             //FilmDTO film = filmList.Where(f => f.Id == guidId).FirstOrDefault();
@@ -85,6 +91,8 @@ namespace Kino.MVC.Controllers
             filmDTO.Id = film.Id;
             filmDTO.Title = film.Title;
             filmDTO.Release = film.Release;
+            filmDTO.Genre = film.Genre; 
+            filmDTO.Duration = film.Duration;
             
             await Service.PutAsync(filmDTO.Id.ToString(), filmDTO);
 
@@ -101,6 +109,8 @@ namespace Kino.MVC.Controllers
             viewFilm.Id = film.Id;
             viewFilm.Title = film.Title;
             viewFilm.Release = film.Release;
+            viewFilm.Genre = film.Genre;
+            viewFilm.Duration = film.Duration;
 
             return View(viewFilm);
 
@@ -116,6 +126,8 @@ namespace Kino.MVC.Controllers
             viewFilm.Id = film.Id;
             viewFilm.Title = film.Title;
             viewFilm.Release = film.Release;
+            viewFilm.Genre = film.Genre;
+            viewFilm.Duration = film.Duration;
             //List<FilmDTO> filmList = await Service.GetAllAsync();
             //Guid guidId = Guid.Parse(id);
             //FilmDTO film = filmList.Where(f => f.Id == guidId).FirstOrDefault();
@@ -130,6 +142,8 @@ namespace Kino.MVC.Controllers
             filmDTO.Id = film.Id;
             filmDTO.Title = film.Title;
             filmDTO.Release = film.Release;
+            filmDTO.Genre = film.Genre;
+            filmDTO.Duration = film.Duration;
 
             await Service.DeleteAsync(filmDTO.Id);
 
@@ -139,15 +153,28 @@ namespace Kino.MVC.Controllers
 
         //-/////////////////////////////////////////////////////////////////////
 
-        [HttpPost]
-        public async Task<ActionResult> Create(FilmDTO filmDTO)
+        [HttpGet]
+        public async Task<ActionResult> Create(/*FilmDTO filmDTO*/)
         {
-            
-            
+            //await Service.PostAsync(filmDTO);
+
+            return View(); 
+        }
+        [HttpPost]
+        public async Task<ActionResult> Create(FilmView film)
+        {
+            FilmDTO filmDTO = new FilmDTO();
+
+            filmDTO.Id = film.Id;
+            filmDTO.Title = film.Title;
+            filmDTO.Release = film.Release;
+            filmDTO.Genre = film.Genre;
+            filmDTO.Duration = film.Duration;
 
             await Service.PostAsync(filmDTO);
 
-            return View(); 
+            return View();
+
         }
 
 
