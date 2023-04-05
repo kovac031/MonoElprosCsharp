@@ -129,6 +129,25 @@ namespace Kino.Repository
 
         public List<FilmDTO> GetPagingSortingFiltering(FilmFiltering filtering, Paging paging, Sorting sorting)
         {
+            IQueryable<Film> query = Context.Films.AsQueryable();
+
+            List<FilmDTO> filmDTOs = Context.Films.Select(film => new FilmDTO()
+            {
+                Id = film.Id,
+                Title = film.Title,
+                Release = film.Release,
+                Genre = film.Genre,
+                Duration = film.Duration
+            }).ToList<FilmDTO>();
+
+            switch (sorting.OrderBy)
+            {
+                case "Title":
+                    if (sorting.SortOrderAsc) query = query.OrderBy(ord => ord.Title);
+                    else query = query.OrderByDescending(ord => ord.Title);
+                    break;
+            }
+
             return (null);
         }
 
